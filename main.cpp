@@ -26,9 +26,10 @@ class Pb_Cauchy{
     double F(double x, double f);
 };
 
+
 class Tests{
 };
- 
+
 
 class Refroidissement: public Tests{
     public:
