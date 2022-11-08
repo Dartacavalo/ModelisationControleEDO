@@ -26,6 +26,9 @@ class EDO{
     double F(double x, double f);
 };
 
+class solveur {
+	double reel;
+}
 
 class Refroidissement{
     public:
