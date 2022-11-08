@@ -26,8 +26,10 @@ class EDO{
     double F(double x, double f);
 };
 
+class Tests{
+};
 
-class Refroidissement{
+class Refroidissement: public Tests{
     public:
     double k;
     double T0;
@@ -40,8 +42,6 @@ class Refroidissement{
 
 class Schemas{
     public:
-    
-    
 };
 
 
