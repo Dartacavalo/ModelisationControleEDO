@@ -18,7 +18,7 @@ class CI{
     double const y0;
 };
 
-class EDO{
+class Pb_Cauchy{
     public:
     //conditions initiales
     CI cond_init;
@@ -26,11 +26,12 @@ class EDO{
     double F(double x, double f);
 };
 
-class solveur {
-	double reel;
+
+class Tests{
 };
 
-class Refroidissement{
+
+class Refroidissement: public Tests{
     public:
     double k;
     double T0;
@@ -43,11 +44,13 @@ class Refroidissement{
 
 class Schemas{
     public:
-    
-    
 };
 
-
+class noclass {
+    public:
+        double wesh;
+        double weshwesh;
+};
 
 //
 
