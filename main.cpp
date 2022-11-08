@@ -48,6 +48,7 @@ class Schemas{
 class noclass {
     public:
         double wesh;
+        double weshwesh;
 };
 
 //
