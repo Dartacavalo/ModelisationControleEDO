@@ -45,7 +45,9 @@ class Schemas{
     public:
 };
 
-
+class noclass {
+    public:
+};
 
 //
 
