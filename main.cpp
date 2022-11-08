@@ -28,6 +28,7 @@ class Pb_Cauchy{
 
 class Tests{
 };
+ 
 
 class Refroidissement: public Tests{
     public:
