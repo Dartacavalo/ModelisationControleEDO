@@ -28,7 +28,7 @@ class EDO{
 
 class solveur {
 	double reel;
-}
+};
 
 class Refroidissement{
     public:
