@@ -18,7 +18,7 @@ class CI{
     double const y0;
 };
 
-class EDO{
+class Pb_Cauchy{
     public:
     //conditions initiales
     CI cond_init;
