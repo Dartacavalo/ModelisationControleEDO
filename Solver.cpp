@@ -37,11 +37,12 @@ void Solver::expor()
     schema_EDO.close();
 
     ofstream gnuplot_input_file;
-    string gnuplot_namefile = "gnuplot_" + nom + "";
+    string gnuplot_namefile = "gnuplot_" + nom;
     gnuplot_input_file.open(gnuplot_namefile);
     gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] 'schema_EDO.txt' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
-    system("gnuplot -p gnuplot_input_fileE.txt");
+    string command = "gnuplot -p gnuplot_" + nom;
+    system(command.c_str());
 }
 
 void EulerExplicite::calcul()
