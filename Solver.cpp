@@ -32,7 +32,6 @@ void Solver::expor()
     for (unsigned long long j = 0; j <= N; j++)
     {
         schema_EDO << t_val[j] << " " << x_val[j] << endl;
-        //		cout<< t_val[j]<<" "<<x_val[j]<<endl;
     }
     schema_EDO.close();
 
