@@ -30,8 +30,8 @@ class Solver
     vector<double> t_val; // Stocke les valeurs du temps *** Ajouter leur taille
 
     // Stockage des valeurs
-    double nouvelle_sol; // Nouvelle sol : au temps n+1
-    double ancienne_sol; // Ancienne sol : au temps n
+    double nouveau_point; // Nouvelle sol : au temps n+1
+    double ancien_point; // Ancienne sol : au temps n
 
     string nom; // nom à donner au fichier
 
