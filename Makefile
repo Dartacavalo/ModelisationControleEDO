@@ -1,9 +1,9 @@
-progs = test_essay1
+progs = main.out
 flags =
 
 all: $(progs)
 
-test_essay1: main.cpp PbCauchy.o Solver.o CasTest.o
+main.out: main.cpp PbCauchy.o Solver.o CasTest.o
 	g++ -o $@ $^ $(flags)
 
 CasTest.o: CasTest.cpp Solver.hpp PbCauchy.hpp
@@ -16,4 +16,4 @@ PbCauchy.o: PbCauchy.cpp PbCauchy.hpp
 	g++ -c $< $(flags)
 
 clean:
-	rm *.o  $(progs)
+	rm *.o *.txt *.gch $(progs)
