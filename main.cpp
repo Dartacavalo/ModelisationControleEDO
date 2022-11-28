@@ -1,67 +1,63 @@
-//
-//  main.cpp
-//  classEDO
-//
-//  Created by José Maria Marques on 14/11/2022.
-//
-
-
-
+#include "CasTest.hpp"
 #include "PbCauchy.hpp"
 #include "Solver.hpp"
-#include "CasTest.hpp"
 
-#include <math.h>
 #include <iostream>
+#include <math.h>
 #include <vector>
 
 using namespace std;
 
-// fonction de 1er essay
-double essay1(double t, double x){
-    return -2*t*t;
+// F1(t, x) = -2*t^2
+double F1(double t, double x)
+{
+    return -2 * t * t;
 }
 
-double exact(double t){
-    return exp(-t*t);
+// x(t) = exp(-t^2)
+double x(double t)
+{
+    return exp(-t * t);
 }
 
-// fonctioon de 2em3 essay
-double essay2(double t, double x){
+// F2(t, y) = 1
+double F2(double t, double y)
+{
     return 1;
 }
 
-double exact1(double t){
+// y(t) = t
+double y(double t)
+{
     return t;
 }
 
+int main()
+{
+    double const a = 0;
+    double const b = 10;
+    double x0 = x(a);
+    unsigned long long N = 1000;
 
-int main(){
-    
-    double a = 0;
-	double b = 10;
-    double x0 = exact(a);
-    int N = 1000;
-    
-    PbCauchy test = PbCauchy(x0, essay1);
-    
-    EulerExplicite schema(a, b, N, "schema_EDO_EuExp", test);
-    schema.calcul();
-	
-    CasTest castest = CasTest(exact, essay1, a, b, 10, 1000, 10, "schema_test_ptr_exp_RK", "RK");
-	castest.error_export();
-	
-	
-//	Solver* eul = new EulerExplicite(a, b, N, "schema_EDO_EuExp", test);
-//	vector<double> sol_approch = eul->get_x_val();
-//	vector<double> t = eul->get_t_val();
-//	vector<double> sol_exacte = eul->get_x_val();
-//	for(double i = 0; i<1000; i++){
-//		cout<<t[i]<<"  "<<sol_approch[i]<<"  "<<sol_exacte[i]<<"  "<<sol_approch[i] - exact(t[i]) << endl;
-	}
-	
+    PbCauchy pbcauchy_gaussien = PbCauchy(x0, F1);
+
+    EulerExplicite schema_euler_gaussien(a, b, N, "schema_EDO_EuExp", pbcauchy_gaussien);
+    schema_euler_gaussien.calcul();
+    schema_euler_gaussien.expor();
+
+    CasTest erreur_gaussienne = CasTest(pbcauchy_gaussien, x, a, b, 10, 1000, 10, "schema_test_ptr_exp_RK", "RK");
+    erreur_gaussienne.error_export();
+
+    //	Solver* eul = new EulerExplicite(a, b, N, "schema_EDO_EuExp", test);
+    //	vector<double> sol_approch = eul->get_x_val();
+    //	vector<double> t = eul->get_t_val();
+    //	vector<double> sol_exacte = eul->get_x_val();
+    //	for(double i = 0; i<1000; i++){
+    //		cout<<t[i]<<"  "<<sol_approch[i]<<"  "<<sol_exacte[i]<<"  "<<sol_approch[i] - exact(t[i]) << endl;
+}
+
 //	delete eul;
-	
+
 //	castest.maj_schema(100);
 //	castest.calcul();
 //	castest.exacte(100);
@@ -87,6 +83,6 @@ int main(){
 //}
 // Séance 13 Novembre:
 /*prochaine fois : gnuplot, cas test pour le schema: constante et expo,
-classe: cas test: PbCauchy et Sol exacte ou fichier test.cpp avec erreur et ordre de convergence du schema et representer l'erreur en fonction de h
- autres types de schemas
+classe: cas test: PbCauchy et Sol exacte ou fichier test.cpp avec erreur et ordre de convergence du schema et
+representer l'erreur en fonction de h autres types de schemas
 */
