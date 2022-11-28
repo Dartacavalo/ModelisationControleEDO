@@ -3,16 +3,13 @@ flags =
 
 all: $(progs)
 
-main.out: main.cpp PbCauchy.o Solver.o CasTest.o
+main.out: main.cpp Solver.o CasTest.o PbCauchy.hpp
 	g++ -o $@ $^ $(flags)
 
 CasTest.o: CasTest.cpp Solver.hpp PbCauchy.hpp
-	g++ -c $^ $(flags)
-
-Solver.o: Solver.cpp Solver.hpp 
 	g++ -c $< $(flags)
 
-PbCauchy.o: PbCauchy.cpp PbCauchy.hpp
+Solver.o: Solver.cpp Solver.hpp PbCauchy.hpp
 	g++ -c $< $(flags)
 
 clean:
