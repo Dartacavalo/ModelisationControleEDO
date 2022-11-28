@@ -51,6 +51,7 @@ void Solver::expor()
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
     string command = "gnuplot -p gnuplot_" + nom;
     system(command.c_str());
+    // ajouter les kwargs pour de plus jolis plots, à tester aussi !!
 }
 
 void EulerExplicite::calcul()
