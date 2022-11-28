@@ -9,6 +9,15 @@
 
 using namespace std;
 
+vector<double> set_sol_exacte(Solver *schema, function<double(double)> f, unsigned long long n) {
+    vector<double> sol;
+    for (unsigned long long i = 0; i <= n; i++)
+    {
+        sol.push_back(f(schema->t_val[i]));
+    }
+    return sol;
+}
+
 Solver::Solver(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
     : a(_a), b(_b), N(_N), nom(_nom), EDO(_EDO)
 {
