@@ -24,7 +24,8 @@ class PbCauchy
     // La fonction second membre
     function<double(double, double)> fct_second_membre;
 
-    PbCauchy(double _x0, function<double(double, double)> _second_membre) : x0(_x0), fct_second_membre(_second_membre){};
+    PbCauchy(double _x0, function<double(double, double)> _second_membre)
+        : x0(_x0), fct_second_membre(_second_membre){};
 };
 
 #endif /*PbCauchy_hpp*/
