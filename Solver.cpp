@@ -9,8 +9,8 @@
 
 using namespace std;
 
-Solver::Solver(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
-    : a(_a), b(_b), N(_N), nom(_nom), EDO(_EDO)
+Solver::Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N)
+    : EDO(_EDO), nom(_nom), a(_a), b(_b), N(_N)
 {
     // on calcule le pas
     dt = (b - a) / static_cast<double>(N);
