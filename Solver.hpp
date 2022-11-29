@@ -21,6 +21,7 @@ class Solver
 {
   public:
     PbCauchy EDO;
+    string nom; // nom à donner au fichier
 
     // Discretisation de l'espace
     double const a, b;    // Intervalle d'etude [a;b]
@@ -33,13 +34,13 @@ class Solver
     double nouveau_point; // Nouvelle sol : au temps n+1
     double ancien_point; // Ancienne sol : au temps n
 
-    string nom; // nom à donner au fichier
+    
 
     // Temps
     double t;
 
     // Constructeur
-    Solver(double _a, double _b, unsigned long long _N, string nom, PbCauchy _EDO);
+    Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N);
 
     // Calcule la sol
     virtual void calcul(){};
@@ -54,7 +55,7 @@ class EulerExplicite : public Solver
 {
   public:
     EulerExplicite(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
-        : Solver(_a, _b, _N, _nom, _EDO){};
+        : Solver(_EDO, _nom, _a, _b, _N){};
 
     void calcul_pas();
     void calcul();
@@ -65,7 +66,7 @@ class RungeKutta : public Solver
   public:
     double k, k1, k2, k3, k4;
     RungeKutta(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
-        : Solver(_a, _b, _N, _nom, _EDO){};
+        : Solver(_EDO, _nom, _a, _b, _N){};
 
     void maj_k();
     void calcul_pas();
