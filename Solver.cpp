@@ -14,7 +14,8 @@ Solver::Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long l
 {
     // on calcule le pas
     dt = (b - a) / static_cast<double>(N);
-
+    x_val.reserve(N+1);
+    t_val.reserve(N+1);
     // on maj les CI
     x_val.push_back(EDO.x0);
     ancien_point = EDO.x0;
