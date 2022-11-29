@@ -20,11 +20,11 @@ class PbCauchy
   public:
     // La condition initiale
     double x0; // N'est pas constant c.f. classe Cas Test -> methode exacte
-    // x0 = y(0)
+    // x0 = x(t_0) = x (a)
     // La fonction second membre
-    function<double(double, double)> second_membre;
+    function<double(double, double)> fct_second_membre;
 
-    PbCauchy(double _x0, function<double(double, double)> _second_membre) : x0(_x0), second_membre(_second_membre){};
+    PbCauchy(double _x0, function<double(double, double)> _second_membre) : x0(_x0), fct_second_membre(_second_membre){};
 };
 
 #endif /*PbCauchy_hpp*/
