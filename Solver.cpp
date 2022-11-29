@@ -9,20 +9,9 @@
 
 using namespace std;
 
-vector<double> set_sol_exacte(Solver *schema, function<double(double)> f, unsigned long long n) {
-    vector<double> sol;
-    for (unsigned long long i = 0; i <= n; i++)
-    {
-        sol.push_back(f(schema->t_val[i]));
-    }
-    return sol;
-}
-
 Solver::Solver(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
     : a(_a), b(_b), N(_N), nom(_nom), EDO(_EDO)
 {
-    nom += ".txt";
-
     // on calcule le pas
     dt = (b - a) / static_cast<double>(N);
 
@@ -36,7 +25,7 @@ Solver::Solver(double _a, double _b, unsigned long long _N, string _nom, PbCauch
 void Solver::expor()
 {
     ofstream schema_EDO;
-    schema_EDO.open(nom);
+    schema_EDO.open(nom + ".txt");
     calcul();
     for (unsigned long long j = 0; j <= N; j++)
     {
@@ -45,9 +34,9 @@ void Solver::expor()
     schema_EDO.close();
 
     ofstream gnuplot_input_file;
-    string gnuplot_namefile = "gnuplot_" + nom;
+    string gnuplot_namefile = "gnuplot_" + nom + ".bat";
     gnuplot_input_file.open(gnuplot_namefile);
-    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom << "' with lines" << endl;
+    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom << ".txt' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
     string command = "gnuplot -p " + gnuplot_namefile;
     system(command.c_str());
