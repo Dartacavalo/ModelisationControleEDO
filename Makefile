@@ -13,4 +13,4 @@ Solver.o: Solver.cpp Solver.hpp PbCauchy.hpp
 	g++ -c $< $(flags)
 
 clean:
-	rm *.o *.txt *.gch $(progs)
+	rm *.o *.txt $(progs)
