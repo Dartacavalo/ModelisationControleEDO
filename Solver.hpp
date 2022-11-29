@@ -48,7 +48,8 @@ class Solver
     // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
     void expor();
 
-    // *** Rajouter un destructeur
+    // Rajouter un destructeur virutel qui appelle le destructeur de par défaut de chaque classe
+    virtual ~Solver(){};
 };
 
 class EulerExplicite : public Solver
