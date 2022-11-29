@@ -67,6 +67,7 @@ double CasTest::calcul_pente_max()
     return (log(erreur_max[h.size() - 1]) - log(erreur_max[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
 
+
 double CasTest::calcul_pente_L2()
 {
     return (log(erreur_L2[h.size() - 1]) - log(erreur_L2[0])) / (log(h[h.size() - 1]) - log(h[0]));
@@ -118,6 +119,20 @@ void CasTest::error_export()
 }
 
 
+void CasTest::exact_export(double n){
+	string nom_solution_exate = nom_schema + "_solution_exacte.txt";
+	ofstream solution_exacte;
+    solution_exacte.open(nom_solution_exate);
+	Solver* schema = def_schema(n);
+	tps = schema->get_t_val();
+	set_sol_exacte(n);
+    for(double i= 0; i < n; i++){
+        solution_exacte <<tps[i] <<" "<<sol_exacte[i]<<endl;
+//		cout<<temps[i]<<" "<< fct_sol_exacte(temps[i])<<endl;
+    }
+    solution_exacte.close();
+	delete schema;
+}
 
 // Questions:
 // - comment faire EDO->x0 = fct_sol_exacte(schema->a) ?

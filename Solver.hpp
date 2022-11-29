@@ -9,7 +9,6 @@ Euler Explicite et Runge Kutta d'ordre 4.
 #define Solver_hpp
 
 #include "PbCauchy.hpp"
-
 #include <functional>
 #include <stdio.h>
 #include <string>

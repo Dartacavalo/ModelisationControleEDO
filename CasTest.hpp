@@ -30,13 +30,13 @@ class CasTest
     vector<double> erreur_max; // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> erreur_L2;  // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> h;          // Les abscisses
-    vector<double> vec_sol_exacte;
 
     // Arguments intermediaires qui changeront de taille avec chaque nouveau calcul d erreur
     // vector<double> tps;
     // vector<double> sol_approch;
 
     // Le constructeur de CasTest
+
     CasTest(PbCauchy _pbcauchy, function<double(double, double, double)> _fct_sol_exacte, const double _a,
             const double _b, double const _N_min, double const _N_max, double const _pas, string _nom_schema,
             string _type_schema)
@@ -54,10 +54,8 @@ class CasTest
 
     void expor();
     void error_export();
-
-    //    // L'exportation de la solution exacte pour superposer à la solution approchee
-    //    void exact_export();
-
+    void exact_export(double n);
+    
     // *** Rajouter un destructeur
 };
 

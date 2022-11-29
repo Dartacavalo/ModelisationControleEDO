@@ -53,7 +53,9 @@ void EulerExplicite::calcul()
         ancien_point = nouveau_point;
         t += dt;
         t_val.push_back(t);
+
     }
+	t_val[N] = b;
 }
 
 void RungeKutta::maj_k()

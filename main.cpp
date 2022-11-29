@@ -1,13 +1,11 @@
 #include "CasTest.hpp"
 #include "PbCauchy.hpp"
 #include "Solver.hpp"
-
 #include <iostream>
 #include <math.h>
 #include <vector>
 
 using namespace std;
-
 // F1(t, x) = -2*t^2
 double F1(double t, double x)
 {
@@ -53,6 +51,9 @@ int main()
     erreur_gaussienne.error_export();
 }
 
+double integrand(double x){
+	return 4*sqrt(1-x*x);
+}
 
 // Séance 13 Novembre:
 /*prochaine fois : gnuplot, cas test pour le schema: constante et expo,
