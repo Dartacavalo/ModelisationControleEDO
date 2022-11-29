@@ -32,9 +32,7 @@ class Solver
 
     // Stockage des valeurs
     double nouveau_point; // Nouvelle sol : au temps n+1
-    double ancien_point; // Ancienne sol : au temps n
-
-    
+    double ancien_point;  // Ancienne sol : au temps n
 
     // Temps
     double t;
@@ -48,7 +46,7 @@ class Solver
     // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
     void expor();
 
-    // Rajouter un destructeur virutel qui appelle le destructeur de par défaut de chaque classe
+    // Rajouter un destructeur virtuel qui appelle le destructeur de par défaut de chaque classe
     virtual ~Solver(){};
 };
 
