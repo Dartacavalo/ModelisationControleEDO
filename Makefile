@@ -1,5 +1,5 @@
 progs = main.out
-flags =
+flags = -Wall
 
 all: $(progs)
 
@@ -13,4 +13,4 @@ Solver.o: Solver.cpp Solver.hpp PbCauchy.hpp
 	g++ -c $< $(flags)
 
 clean:
-	rm *.o *.txt $(progs)
+	rm *.o *.txt *.bat $(progs)
