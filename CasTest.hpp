@@ -20,7 +20,6 @@ class CasTest
 
     // les nouveaux objets à construire
     function<double(double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
-    vector<double> sol_exacte;               // Vecteur qui évalue la solution exacte en les points
     vector<double> erreur_max;               // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> erreur_L2;                // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> h;                        // Les abscisses
@@ -44,7 +43,7 @@ class CasTest
 
     Solver *def_schema(unsigned long long n);
 
-    void set_sol_exacte(Solver *schema, unsigned long long n);
+    // void set_sol_exacte(Solver *schema, unsigned long long n);
     void calcul_erreur_L2(unsigned long long n);
     void calcul_erreur_max(unsigned long long n);
     void calcul_erreur_totale();
@@ -52,6 +51,7 @@ class CasTest
     double calcul_pente_max();
     double calcul_pente_L2();
 
+    void expor();
     void error_export();
 
 
