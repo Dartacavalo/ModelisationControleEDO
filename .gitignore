@@ -2,6 +2,7 @@
 .vscode
 *.json
 *.o
-*.gch
 *.out
 *.txt
+*.bat
+*.gch
