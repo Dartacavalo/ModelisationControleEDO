@@ -36,7 +36,7 @@ void Solver::expor()
     ofstream gnuplot_input_file;
     string gnuplot_namefile = "gnuplot_" + nom + ".bat";
     gnuplot_input_file.open(gnuplot_namefile);
-    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom << ".txt' with lines" << endl;
+    gnuplot_input_file << "plot [" << a << ":" << b << "] '" << nom << ".txt' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
     string command = "gnuplot -p " + gnuplot_namefile;
     system(command.c_str());
