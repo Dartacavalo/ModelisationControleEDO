@@ -48,7 +48,7 @@ void EulerExplicite::calcul()
 {
     for (unsigned long long i = 1; i <= N; i++)
     {
-        nouveau_point = ancien_point + dt * (EDO.second_membre(t, ancien_point));
+        nouveau_point = ancien_point + dt * (EDO.fct_second_membre(t, ancien_point));
         x_val.push_back(nouveau_point);
         ancien_point = nouveau_point;
         t += dt;
@@ -58,10 +58,10 @@ void EulerExplicite::calcul()
 
 void RungeKutta::maj_k()
 {
-    k1 = dt * (EDO.second_membre(t, ancien_point));
-    k2 = dt * (EDO.second_membre((t + dt / 2), (ancien_point + k1 / 2)));
-    k3 = dt * (EDO.second_membre((t + dt / 2), (ancien_point + k2 / 2)));
-    k4 = dt * (EDO.second_membre((t + dt), (ancien_point + k3)));
+    k1 = dt * (EDO.fct_second_membre(t, ancien_point));
+    k2 = dt * (EDO.fct_second_membre((t + dt / 2), (ancien_point + k1 / 2)));
+    k3 = dt * (EDO.fct_second_membre((t + dt / 2), (ancien_point + k2 / 2)));
+    k4 = dt * (EDO.fct_second_membre((t + dt), (ancien_point + k3)));
     k = (k1 + 2 * k2 + 2 * k3 + k4) / 6;
 }
 
