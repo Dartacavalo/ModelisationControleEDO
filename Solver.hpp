@@ -55,7 +55,6 @@ class EulerExplicite : public Solver
     EulerExplicite(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
         : Solver(_EDO, _nom, _a, _b, _N){};
 
-    void calcul_pas();
     void calcul();
 };
 
@@ -67,11 +66,9 @@ class RungeKutta : public Solver
         : Solver(_EDO, _nom, _a, _b, _N){};
 
     void maj_k();
-    void calcul_pas();
     void calcul();
 };
 
 #endif /* Solver_hpp */
 
-// Q : est-ce qu'il vaut le coup d'avoir toutes ces methodes virtuelles ex: calcul_pas et set_condi_ini
 // A faire : Euler implicite et CrankNicholson : Chercher des biblis pour l'inversion de syst lineaires
