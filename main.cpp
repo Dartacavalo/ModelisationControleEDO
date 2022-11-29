@@ -10,6 +10,7 @@
 #include "PbCauchy.hpp"
 #include "Solver.hpp"
 #include "CasTest.hpp"
+#include "Integrale.hpp"
 
 #include <math.h>
 #include <iostream>
@@ -19,11 +20,11 @@ using namespace std;
 
 // fonction de 1er essay
 double essay1(double t, double x){
-    return -2*t*t;
+    return -2*t*x;
 }
 
-double exact(double t){
-    return exp(-t*t);
+double exact(double t, double x0, double t0){
+    return x0*exp(-t*t+t0*t0);
 }
 
 // fonctioon de 2em3 essay
@@ -35,22 +36,33 @@ double exact1(double t){
     return t;
 }
 
+double integrand(double x){
+	return 4*sqrt(1-x*x);
+}
 
 int main(){
     
-    double a = 0;
-	double b = 10;
-    double x0 = exact(a);
-    int N = 1000;
+    double a = -1.5;
+	double b = 1.5;
+    double x0 = 1;
+    int N = 100;
     
     PbCauchy test = PbCauchy(x0, essay1);
     
-    EulerExplicite schema(a, b, N, "schema_EDO_EuExp", test);
-    schema.calcul();
+    EulerExplicite schema(a, b, N, "schema_EDO_EuExp_test", test);
+    schema.expor();
 	
-    CasTest castest = CasTest(exact, essay1, a, b, 10, 1000, 10, "schema_test_ptr_exp_RK", "RK");
+    CasTest castest = CasTest(exact, essay1, a, b, x0, 1000, 10000, 100, "schema_test_ptr_exp", "EuExp");
+//	castest.calcul_d_une_erreur(7000);
+//	castest.calcul_erreur_totale();
+	castest.exact_export(1000);
 	castest.error_export();
+	castest.calcul_pente();
 	
+//	Integrale calculPi(0, 1, integrand, 100);
+	
+//	cout<<calculPi.point_milieu()<<endl;
+//	cout<<calculPi.simpson()<<endl;
 	
 //	Solver* eul = new EulerExplicite(a, b, N, "schema_EDO_EuExp", test);
 //	vector<double> sol_approch = eul->get_x_val();
@@ -58,33 +70,10 @@ int main(){
 //	vector<double> sol_exacte = eul->get_x_val();
 //	for(double i = 0; i<1000; i++){
 //		cout<<t[i]<<"  "<<sol_approch[i]<<"  "<<sol_exacte[i]<<"  "<<sol_approch[i] - exact(t[i]) << endl;
+	return 0;
 	}
 	
-//	delete eul;
-	
-//	castest.maj_schema(100);
-//	castest.calcul();
-//	castest.exacte(100);
-//    castest.error_export();
 
-//    RungeKutta schema_RK(a, b, N, "schema_EDO_RK", test);
-//    schema_RK.expor();
-//
-//    RungeKutta schema1_RK = RungeKutta(a, b, N, "schema_EDO_RK", test);
-//    CasTest castest_RK(exact, essay1, schema1_RK, 100, 10000, 100);
-//    castest_RK.exact_export();
-
-//	cout<<castest.calcul_pente()<<endl;
-//	cout<<castest_RK.calcul_pente()<<endl;
-////    castest_RK.error_export();
-//
-//    EulerExplicite schema2 = EulerExplicite(a, b, 100, test);
-//    CasTest castest1(exact, essay1, schema2, 1000, 10000, 100);
-//    castest.exact_export();
-//    castest.error_export();
-//
-//    return 0;
-//}
 // Séance 13 Novembre:
 /*prochaine fois : gnuplot, cas test pour le schema: constante et expo,
 classe: cas test: PbCauchy et Sol exacte ou fichier test.cpp avec erreur et ordre de convergence du schema et representer l'erreur en fonction de h

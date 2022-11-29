@@ -8,7 +8,6 @@
 #ifndef CasTest_hpp
 #define CasTest_hpp
 
-#include <stdio.h>
 #include <functional>
 #include <vector>
 #include <iostream>
@@ -21,7 +20,7 @@ using namespace std;
 
 class CasTest{
     public:
-    function<double(double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
+    function<double(double, double, double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
     vector<double> sol_exacte;  // Vecteur qui stocke le calcul de l'erreur *** Ajouter sa taille
     vector<double> error_tot;  // Vecteur qui stocke le calcul de l'erreur totale *** Ajouter sa taille
     vector<double> h; // Les abscices
@@ -40,9 +39,9 @@ class CasTest{
     vector<double> sol_approch;
     
     // Le constructeur de CasTest
-	CasTest(function<double(double)> _sol_exacte, function<double(double, double)> _fct_second_membre, double const _a, double const _b, double const _N_min, double const _N_max, double const _pas, string _nom_schema, string _type_schema);
+	CasTest(function<double(double, double, double)> _sol_exacte, function<double(double, double)> _fct_second_membre, double const _a, double const _b, double _x0, double const _N_min, double const _N_max, double const _pas, string _nom_schema, string _type_schema);
     
-	Solver* def_schema(double n);
+	 Solver* def_schema(double n);
 	
 //	void set_tps(Solver* schema);
 //	void set_sol_approch(Solver* schema);
@@ -66,7 +65,7 @@ class CasTest{
 //    void error_export();
 //
 //    // L'exportation de la solution exacte pour superposer à la solution approchee
-//    void exact_export();
+    void exact_export(double n);
     
     // *** Rajouter un destructeur
     

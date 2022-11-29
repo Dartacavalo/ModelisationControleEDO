@@ -9,7 +9,6 @@
 #include "Solver.hpp"
 
 #include <iostream>
-#include <stdio.h>
 #include <functional>
 #include <vector>
 #include <string>
@@ -23,13 +22,31 @@ Solver::Solver(double _a, double _b, unsigned long long _N, string _nom, PbCauch
 	dt = (b-a)/static_cast<double>(N);
 	
 	// on maj les CI
-	x_val.push_back(EDO.x0);
+
 	ancienne_sol = EDO.x0;
 	t = a;
-	t_val.resize(N);
+//	t_val.resize(N);
 	t_val.push_back(a);
 }
 
+double Solver::get_x_val_i(double i) {
+//	calcul_pas();
+//	set_condi_ini();
+	calcul();
+	return x_val[i];
+}
+
+vector<double> Solver::get_x_val() {
+//	calcul_pas();
+//	set_condi_ini();
+	calcul();
+	return x_val;
+}
+
+vector<double> Solver::get_t_val() {
+	calcul();
+	return t_val;
+}
 
 void Solver::expor(){
 	ofstream schema_EDO;
@@ -72,17 +89,17 @@ EulerExplicite::EulerExplicite(double _a, double _b,unsigned long long _N, strin
 //}
 
 void EulerExplicite::calcul() {
+	double temp = 0;
     for(double i = 1; i<= N; i++){
         nouvelle_sol = ancienne_sol+dt*(EDO.second_membre(t,ancienne_sol));
+		temp = nouvelle_sol;
         x_val.push_back(nouvelle_sol);
-        ancienne_sol = nouvelle_sol;
-        t += dt;
         t_val.push_back(t);
-        if(i==N){ /////// A corriger
-			t_val.push_back(b);
-        }
-//		cout<<x_val[i]<<endl;
+		ancienne_sol = temp;
+		t += dt;
+//		cout<<ancienne_sol<<"  "<<nouvelle_sol<<"  "<<x_val[i]<<endl;
     }
+	t_val[N] = b;
 }
 
 
@@ -126,22 +143,3 @@ void RungeKutta::calcul(){
     }
 }
 
-//
-//double Solver::get_x_val_i(double i) {
-//	calcul_pas();
-//	set_condi_ini();
-//	calcul();
-//	return x_val[i];
-//}
-//
-//vector<double> Solver::get_x_val() {
-//	calcul_pas();
-//	set_condi_ini();
-//	calcul();
-//	return x_val;
-//}
-//
-//vector<double> Solver::get_t_val() {
-//	calcul();
-//	return t_val;
-//}

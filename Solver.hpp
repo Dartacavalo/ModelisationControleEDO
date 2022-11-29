@@ -10,7 +10,7 @@
 
 #include "PbCauchy.hpp"
 
-#include <stdio.h>
+#include <iostream>
 #include <functional>
 #include <vector>
 #include <string>
@@ -44,10 +44,10 @@ class Solver{
 //	virtual void calcul_pas();
 //	virtual void set_condi_ini(); // Pourrait etre surchargee en  cas de besoin
 
-//	double get_x_val_i(double i);
-//	vector<double> get_x_val();
-//	vector<double> get_t_val();
-//	
+	double get_x_val_i(double i);
+	vector<double> get_x_val();
+	vector<double> get_t_val();
+	
     // Calcule la sol
 	virtual void calcul() {};
     // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
