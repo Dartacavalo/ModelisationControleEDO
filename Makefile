@@ -3,7 +3,7 @@ flags = -Wall
 
 all: $(progs)
 
-main.out: main.cpp Solver.o CasTest.o PbCauchy.hpp
+main.out: main.cpp Solver.o CasTest.o
 	g++ -o $@ $^ $(flags)
 
 CasTest.o: CasTest.cpp Solver.hpp PbCauchy.hpp
