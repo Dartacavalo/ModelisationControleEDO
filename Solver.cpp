@@ -47,11 +47,12 @@ void Solver::expor()
     ofstream gnuplot_input_file;
     string gnuplot_namefile = "gnuplot_" + nom;
     gnuplot_input_file.open(gnuplot_namefile);
-    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] 'schema_EDO.txt' with lines" << endl;
+    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom << "' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
-    string command = "gnuplot -p gnuplot_" + nom;
+    string command = "gnuplot -p " + gnuplot_namefile;
     system(command.c_str());
     // ajouter les kwargs pour de plus jolis plots, à tester aussi !!
+    gnuplot_input_file.close();
 }
 
 void EulerExplicite::calcul()
