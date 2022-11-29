@@ -11,13 +11,13 @@ using namespace std;
 // F1(t, x) = -2*t^2
 double F1(double t, double x)
 {
-    return -2 * t * t;
+    return -2 * t * x;
 }
 
 // x(t) = exp(-t^2)
-double x(double t)
+double x(double t, double x0, double a)
 {
-    return exp(-t * t);
+    return x0 * exp(-(t * t - a * a));
 }
 
 // F2(t, y) = 1
@@ -27,16 +27,16 @@ double F2(double t, double y)
 }
 
 // y(t) = t
-double y(double t)
+double y(double t, double x0, double a)
 {
-    return t;
+    return x0 * (t - a);
 }
 
 int main()
 {
-    double const a = 0;
-    double const b = 1;
-    double x0 = x(a);
+    double const a = -1.5;
+    double const b = 1.5;
+    double x0 = 1;
     unsigned long long N = 100;
 
     PbCauchy pbcauchy_gaussien = PbCauchy(x0, F1);
@@ -45,7 +45,7 @@ int main()
     schema_euler_gaussien.calcul();
     schema_euler_gaussien.expor();
 
-    CasTest erreur_gaussienne = CasTest(pbcauchy_gaussien, x, a, b, 10, 50, 10, "schema_test_ptr_exp_RK", "RK");
+    CasTest erreur_gaussienne = CasTest(pbcauchy_gaussien, x, a, b, 100, 10000, 100, "schema_test_ptr_exp_RK", "EuExp");
     erreur_gaussienne.error_export();
 
     //	Solver* eul = new EulerExplicite(a, b, N, "schema_EDO_EuExp", test);
