@@ -1,74 +1,62 @@
-//
-//  CasTest.hpp
-//  ProjetC++
-//
-//  Created by José Maria Marques on 20/11/2022.
-//
-
 #ifndef CasTest_hpp
 #define CasTest_hpp
 
 #include <functional>
-#include <vector>
 #include <iostream>
 #include <math.h>
+#include <stdio.h>
+#include <vector>
 
 #include "PbCauchy.hpp"
 #include "Solver.hpp"
 
 using namespace std;
 
-class CasTest{
-    public:
+class CasTest
+{
+  public:
+    // les dépendances évidentes
+    PbCauchy pbcauchy; // Le pb de Cauchy dont solution exacte connue est a tester;
     function<double(double, double, double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
-    vector<double> sol_exacte;  // Vecteur qui stocke le calcul de l'erreur *** Ajouter sa taille
-    vector<double> error_tot;  // Vecteur qui stocke le calcul de l'erreur totale *** Ajouter sa taille
-    vector<double> h; // Les abscices
-//    PbCauchy* EDO_test; // Le pb de Cauchy dont solution exacte connue est a tester;
-//    Solver* schema; // Le schema de Cauchy a tester
-	function<double(double, double)> fct_second_membre;
-	double x0;
-	double const a, b;
-    double const N_min, N_max; // Le range de nos tests
-    double const pas; // Le pas
-	string nom_schema;
-	string type_schema;
-	
+
+    // les paramètres de test
+    double a, b;                         // l'intervalle du test
+    const unsigned long long N_min_erreurs, N_max_erreurs; // Le range de nos tests
+    const unsigned long long pas_erreurs;                  // Le pas
+    string nom_schema;
+    string type_schema;
+
+    // les nouveaux objets à construire
+    vector<double> erreur_max; // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
+    vector<double> erreur_L2;  // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
+    vector<double> h;          // Les abscisses
+
     // Arguments intermediaires qui changeront de taille avec chaque nouveau calcul d erreur
-    vector<double> tps;
-    vector<double> sol_approch;
-    
+    // vector<double> tps;
+    // vector<double> sol_approch;
+
     // Le constructeur de CasTest
-	CasTest(function<double(double, double, double)> _sol_exacte, function<double(double, double)> _fct_second_membre, double const _a, double const _b, double _x0, double const _N_min, double const _N_max, double const _pas, string _nom_schema, string _type_schema);
-    
-	 Solver* def_schema(double n);
-	
-//	void set_tps(Solver* schema);
-//	void set_sol_approch(Solver* schema);
-	void set_sol_exacte(double n);
-	void calcul_d_une_erreur(double n);
-	void calcul_erreur_totale();
-	void error_export();
-	double calcul_pente();
-//    // Mise a jour des vecteurs et schema intermediaires dans le calcul de l'erreur
-////    void maj_CI();
-//    void maj_vects(double n);
-//    void maj_schema(double n);
-//    void exacte(double n);
-//
-//    // Le calcul de l'erreur
-//    void erreur(double n); // Calcul de n'erreur pout une iteration
-//    void calcul_error();  // Boucle iterant sur le calcul d'erreur
-//	double calcul_pente(); // Calcule la pente de l'erreur, a utiliser que pour Euler Explicite et RungeKutta
-//
-//    // L'exportation de l'erreur
-//    void error_export();
-//
-//    // L'exportation de la solution exacte pour superposer à la solution approchee
+
+    CasTest(PbCauchy _pbcauchy, function<double(double, double, double)> _fct_sol_exacte, const double _a,
+            const double _b, double const _N_min, double const _N_max, double const _pas, string _nom_schema,
+            string _type_schema)
+        : pbcauchy(_pbcauchy), fct_sol_exacte(_fct_sol_exacte), a(_a), b(_b), N_min_erreurs(_N_min),
+          N_max_erreurs(_N_max), pas_erreurs(_pas), nom_schema(_nom_schema), type_schema(_type_schema){};
+
+    Solver *def_schema(unsigned long long n);
+
+    // void set_sol_exacte(Solver *schema, unsigned long long n);
+    void calcul_erreur(unsigned long long n);
+    void calcul_erreur_totale();
+
+    double calcul_pente_max();
+    double calcul_pente_L2();
+
+    void expor();
+    void error_export();
     void exact_export(double n);
     
     // *** Rajouter un destructeur
-    
 };
 
 #endif /* CasTest_hpp */
