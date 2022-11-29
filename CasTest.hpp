@@ -19,11 +19,11 @@ class CasTest
     PbCauchy pbcauchy; // Le pb de Cauchy dont solution exacte connue est a tester;
 
     // les nouveaux objets à construire
-    function<double(double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
+    function<double(double, double, double)> fct_sol_exacte; // La solution exacte du probleme de Cauchy
     vector<double> erreur_max;               // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> erreur_L2;                // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
     vector<double> h;                        // Les abscisses
-
+    vector<double> vec_sol_exacte;
     // les paramètres de test
     double const a, b;                         // l'intervalle du test
     double const N_min_erreurs, N_max_erreurs; // Le range de nos tests
@@ -36,7 +36,7 @@ class CasTest
     // vector<double> sol_approch;
 
     // Le constructeur de CasTest
-    CasTest(PbCauchy _pbcauchy, function<double(double)> _fct_sol_exacte, const double _a, const double _b,
+    CasTest(PbCauchy _pbcauchy, function<double(double, double, double)> _fct_sol_exacte, const double _a, const double _b,
             double const _N_min, double const _N_max, double const _pas, string _nom_schema, string _type_schema)
         : pbcauchy(_pbcauchy), fct_sol_exacte(_fct_sol_exacte), a(_a), b(_b), N_min_erreurs(_N_min),
           N_max_erreurs(_N_max), pas_erreurs(_pas), nom_schema(_nom_schema), type_schema(_type_schema){};
@@ -44,8 +44,7 @@ class CasTest
     Solver *def_schema(unsigned long long n);
 
     // void set_sol_exacte(Solver *schema, unsigned long long n);
-    void calcul_erreur_L2(unsigned long long n);
-    void calcul_erreur_max(unsigned long long n);
+    void calcul_erreur(unsigned long long n);
     void calcul_erreur_totale();
 
     double calcul_pente_max();
