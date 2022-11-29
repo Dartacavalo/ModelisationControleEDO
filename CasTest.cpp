@@ -15,21 +15,14 @@ Solver *CasTest::def_schema(unsigned long long n)
     if (type_schema == "EuExp")
     {
         EulerExplicite *schema = new EulerExplicite(a, b, n, nom_schema, pbcauchy);
+		schema->calcul();
         return schema;
     }
     else /*if (type_schema == "RK")*/
     {
         RungeKutta *schema = new RungeKutta(a, b, n, nom_schema, pbcauchy);
+		schema->calcul();
         return schema;
-    }
-}
-
-void CasTest::set_sol_exacte(Solver *schema, unsigned long long n)
-{
-    sol_exacte.clear();
-    for (unsigned long long i = 0; i <= n; i++)
-    {
-        sol_exacte.push_back(fct_sol_exacte(schema->t_val[i]));
     }
 }
 
@@ -37,11 +30,11 @@ void CasTest::calcul_erreur_L2(unsigned long long n)
 {
     double err = 0;
     Solver *schema = def_schema(n);
-    set_sol_exacte(schema, n);
     h.push_back(schema->dt);
-    for (double i = 0; i <= n; i++)
+    for (unsigned long long i = 0; i <= n; i++)
     {
-        err += (sol_exacte[i] - schema->x_val[i]) * (sol_exacte[i] - schema->x_val[i]);
+        err += (fct_sol_exacte(schema->t_val[i]) - schema->x_val[i]) *
+               (fct_sol_exacte(schema->t_val[i]) - schema->x_val[i]);
     }
 
     erreur_L2.push_back(sqrt(err));
@@ -52,11 +45,12 @@ void CasTest::calcul_erreur_max(unsigned long long n)
 {
     double err = 0;
     Solver *schema = def_schema(n);
-    set_sol_exacte(schema, n);
-    h.push_back(schema->dt);
-    for (double i = 0; i <= n; i++)
+    // h.push_back(schema->dt); !!!!!!!!!!!!!!!! trouver une solution alternative
+    for (unsigned long long i = 0; i <= n; i++)
     {
-        err = max(err, abs(sol_exacte[i] - schema->x_val[i]));
+        err = max(err, abs(fct_sol_exacte(schema->t_val[i]) - schema->x_val[i]));
+        cout << "t = " << schema->t_val[i] << " x = " << schema->x_val[i] <<
+		" f(t) = " << fct_sol_exacte(schema->t_val[i]) << endl;
     }
 
     erreur_max.push_back(err);
@@ -65,11 +59,14 @@ void CasTest::calcul_erreur_max(unsigned long long n)
 
 void CasTest::calcul_erreur_totale()
 {
-    for (double n = N_min_erreurs + 1; n < N_max_erreurs; n += pas_erreurs)
+    for (unsigned long long n = N_min_erreurs + 1; n < N_max_erreurs; n += pas_erreurs)
     {
         calcul_erreur_L2(n);
-		calcul_erreur_max(n);
+        calcul_erreur_max(n);
     }
+    cout << "taille de h " << h.size() << endl;
+    cout << "taille de erreur_L2 " << erreur_L2.size() << endl;
+    cout << "taille de erreur_max " << erreur_max.size() << endl;
 }
 
 double CasTest::calcul_pente_max()
@@ -85,19 +82,40 @@ double CasTest::calcul_pente_L2()
 void CasTest::error_export()
 {
     ofstream erreur_schema_max;
-	ofstream erreur_schema_L2;
+    ofstream erreur_schema_L2;
     string nom_erreur_max = nom_schema + "_erreur_schema_max.txt";
-	string nom_erreur_L2 = nom_schema + "_erreur_schema_L2.txt";
+    string nom_erreur_L2 = nom_schema + "_erreur_schema_L2.txt";
     erreur_schema_max.open(nom_erreur_max);
-	erreur_schema_L2.open(nom_erreur_L2);
+    erreur_schema_L2.open(nom_erreur_L2);
     calcul_erreur_totale();
     cout << calcul_pente_max() << endl;
-    for (unsigned long long i = 2; i < (N_max_erreurs - N_min_erreurs) / (int)pas_erreurs; i++)
+    for (unsigned long long i = 0; i < h.size(); i++)
     {
         erreur_schema_max << h[i] << " " << erreur_max[i] << " " << log(erreur_max[i]) << endl;
-		erreur_schema_L2 << h[i] << " " << erreur_L2[i] << " " << log(erreur_L2[i]) << endl;
+        erreur_schema_L2 << h[i] << " " << erreur_L2[i] << " " << log(erreur_L2[i]) << endl;
     }
     erreur_schema_max.close();
+    erreur_schema_L2.close();
+
+    ofstream gnuplot_input_file;
+    string gnuplot_namefile = "gnuplot_" + nom_schema + "erreur_L2.bat";
+    gnuplot_input_file.open(gnuplot_namefile);
+    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom_erreur_L2 << "' with lines" << endl;
+    // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
+    string command = "gnuplot -p " + gnuplot_namefile;
+    system(command.c_str());
+    // ajouter les kwargs pour de plus jolis plots, à tester aussi !!
+    gnuplot_input_file.close();
+
+    ofstream gnuplot_input_file2;
+    string gnuplot_namefile2 = "gnuplot_" + nom_schema + "erreur_max.bat";
+    gnuplot_input_file2.open(gnuplot_namefile2);
+    gnuplot_input_file2 << "plot [" << (int)a << ":" << (int)b << "] '" << nom_erreur_max << "' with lines" << endl;
+    // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
+    string command2 = "gnuplot -p " + gnuplot_namefile2;
+    system(command2.c_str());
+    // ajouter les kwargs pour de plus jolis plots, à tester aussi !!
+    gnuplot_input_file2.close();
 }
 
 // void CasTest::exact_export(double n){
