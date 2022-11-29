@@ -2,6 +2,7 @@
 #include "PbCauchy.hpp"
 #include "Solver.hpp"
 
+#include <algorithm>
 #include <functional>
 #include <iostream>
 #include <math.h>
@@ -15,13 +16,13 @@ Solver *CasTest::def_schema(unsigned long long n)
     if (type_schema == "EuExp")
     {
         EulerExplicite *schema = new EulerExplicite(a, b, n, nom_schema, pbcauchy);
-		schema->calcul();
+        schema->calcul();
         return schema;
     }
     else /*if (type_schema == "RK")*/
     {
         RungeKutta *schema = new RungeKutta(a, b, n, nom_schema, pbcauchy);
-		schema->calcul();
+        schema->calcul();
         return schema;
     }
 }
@@ -45,12 +46,10 @@ void CasTest::calcul_erreur_max(unsigned long long n)
 {
     double err = 0;
     Solver *schema = def_schema(n);
-    // h.push_back(schema->dt); !!!!!!!!!!!!!!!! trouver une solution alternative
+    // h.push_back(schema->dt) trouver une solution alternative à ce commentaire
     for (unsigned long long i = 0; i <= n; i++)
     {
         err = max(err, abs(fct_sol_exacte(schema->t_val[i]) - schema->x_val[i]));
-        cout << "t = " << schema->t_val[i] << " x = " << schema->x_val[i] <<
-		" f(t) = " << fct_sol_exacte(schema->t_val[i]) << endl;
     }
 
     erreur_max.push_back(err);
@@ -64,19 +63,18 @@ void CasTest::calcul_erreur_totale()
         calcul_erreur_L2(n);
         calcul_erreur_max(n);
     }
-    cout << "taille de h " << h.size() << endl;
-    cout << "taille de erreur_L2 " << erreur_L2.size() << endl;
-    cout << "taille de erreur_max " << erreur_max.size() << endl;
+    // c'est un peut dodgy de faire ça comme ça, faut vérifier que h et erreur_L2 ont la même taille
+    // c'est le cas mais bon, à revoir
 }
 
 double CasTest::calcul_pente_max()
 {
-    return (log(erreur_max[97]) - log(erreur_max[0])) / (log(h[97]) - log(h[0]));
+    return (log(erreur_max[h.size() - 1]) - log(erreur_max[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
 
 double CasTest::calcul_pente_L2()
 {
-    return (log(erreur_L2[97]) - log(erreur_L2[0])) / (log(h[97]) - log(h[0]));
+    return (log(erreur_L2[h.size() - 1]) - log(erreur_L2[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
 
 void CasTest::error_export()
@@ -88,7 +86,7 @@ void CasTest::error_export()
     erreur_schema_max.open(nom_erreur_max);
     erreur_schema_L2.open(nom_erreur_L2);
     calcul_erreur_totale();
-    cout << calcul_pente_max() << endl;
+    // cout << calcul_pente_max() << endl;
     for (unsigned long long i = 0; i < h.size(); i++)
     {
         erreur_schema_max << h[i] << " " << erreur_max[i] << " " << log(erreur_max[i]) << endl;
@@ -97,10 +95,13 @@ void CasTest::error_export()
     erreur_schema_max.close();
     erreur_schema_L2.close();
 
+    double hmin = *min_element(h.begin(), h.end());
+    double hmax = *max_element(h.begin(), h.end());
+
     ofstream gnuplot_input_file;
     string gnuplot_namefile = "gnuplot_" + nom_schema + "erreur_L2.bat";
     gnuplot_input_file.open(gnuplot_namefile);
-    gnuplot_input_file << "plot [" << (int)a << ":" << (int)b << "] '" << nom_erreur_L2 << "' with lines" << endl;
+    gnuplot_input_file << "plot [" << hmin << ":" << hmax << "] '" << nom_erreur_L2 << "' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
     string command = "gnuplot -p " + gnuplot_namefile;
     system(command.c_str());
@@ -110,7 +111,7 @@ void CasTest::error_export()
     ofstream gnuplot_input_file2;
     string gnuplot_namefile2 = "gnuplot_" + nom_schema + "erreur_max.bat";
     gnuplot_input_file2.open(gnuplot_namefile2);
-    gnuplot_input_file2 << "plot [" << (int)a << ":" << (int)b << "] '" << nom_erreur_max << "' with lines" << endl;
+    gnuplot_input_file2 << "plot [" << hmin << ":" << hmax << "] '" << nom_erreur_max << "' with lines" << endl;
     // system("gnome-terminal -x sh -c 'gnuplot; load gnuplot_input_file.txt; exec bash'");
     string command2 = "gnuplot -p " + gnuplot_namefile2;
     system(command2.c_str());
