@@ -35,9 +35,9 @@ double y(double t)
 int main()
 {
     double const a = 0;
-    double const b = 10;
+    double const b = 1;
     double x0 = x(a);
-    unsigned long long N = 1000;
+    unsigned long long N = 100;
 
     PbCauchy pbcauchy_gaussien = PbCauchy(x0, F1);
 
@@ -45,7 +45,7 @@ int main()
     schema_euler_gaussien.calcul();
     schema_euler_gaussien.expor();
 
-    CasTest erreur_gaussienne = CasTest(pbcauchy_gaussien, x, a, b, 10, 1000, 10, "schema_test_ptr_exp_RK", "RK");
+    CasTest erreur_gaussienne = CasTest(pbcauchy_gaussien, x, a, b, 10, 50, 10, "schema_test_ptr_exp_RK", "RK");
     erreur_gaussienne.error_export();
 
     //	Solver* eul = new EulerExplicite(a, b, N, "schema_EDO_EuExp", test);
