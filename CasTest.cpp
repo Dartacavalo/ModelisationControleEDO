@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <vector>
 
-using namespace std;
+using namespace std; 
 
 Solver *CasTest::def_schema(unsigned long long n)
 {
