@@ -61,6 +61,7 @@ double fct_sol_exacte_F2(double t, double x0, double a)
 
 double A(double t){
 	return -2*t;
+//	return 1/(t*t);
 }
 
 double B(double t){
@@ -124,8 +125,9 @@ double controle_gaussienne(double t, double x){
 
 int main()
 {
-    double a = -1.5;
+    double const a = -1.5;
     double const b = 1.5;
+	double const b1 = 10;
     double const x0 = 1;
     const unsigned long long N = 100;
 	double const cible = 6;
@@ -133,10 +135,14 @@ int main()
 //    const unsigned long long N_max = 10000;
 //    const unsigned long long pas_erreurs = 100;
 
-	Controle gaussienne(a, b, x0, cible, N, "Simpson");
+	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
     EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
     schema_euler_gaussien_controle.calcul();
     schema_euler_gaussien_controle.expor();
+	
+	EulerExplicite schema_euler_gaussien_feedback(a, b1, N, "poleshifitng", gaussienne.feedback_PbCauchy());
+	schema_euler_gaussien_feedback.calcul();
+	schema_euler_gaussien_feedback.expor();
 	
 	
 

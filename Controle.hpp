@@ -30,12 +30,9 @@ public:
 	function<double(double)> A, B; // Les coefficients non autonomes de notre probleme
 	const unsigned long long N; // Le pas d'integration
 	
-	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration){
-		C = 2*exp(t1)*(cible-x0*exp(t1-t0))/(exp(2*(t1-t0))-1.);
-//		y =
-	}
+	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration), A(_A), B(_B) {}
 	
-	double utest(double t, double x){ return C*exp(-t);}
+//	double utest(double t, double x){ return C*exp(-t);}
 	
 	double R(double t, double s){
 		Integrale int_A(s, t, A, N);
@@ -63,8 +60,8 @@ public:
 	}
 	
 	double u(double s){
-		double y = 1/Gramian()*(cible- R(t1,t0)*x0);
-		return B(s)*R(t1,t0)*y;
+		double y = 1./Gramian()*(cible- R(t1,t0)*x0);
+		return B(s)*R(t1,s)*y;
 	}
 
 	double controle_second_membre(double t, double x){
@@ -72,8 +69,8 @@ public:
 	}
 	
 	PbCauchy controle_PbCauchy(){
-		function<double(double, double)> contole_scd_mb = bind(&Controle::controle_second_membre, this, placeholders::_1, placeholders::_2);
-		return PbCauchy(x0, contole_scd_mb);
+		function<double(double, double)> controle_scd_mb = bind(&Controle::controle_second_membre, this, placeholders::_1, placeholders::_2);
+		return PbCauchy(x0, controle_scd_mb);
 	};
 	
 	double integrande_sol_exacte(double s){
@@ -85,7 +82,25 @@ public:
 		Integrale terme(t0, t1, integ_sol_exacte, N);
 		return R(t1, t0)*x0 + terme.simpson();
 	}
-		
+	
+	double feedback(){
+		double f = 0.;
+		double dt = (t1-t0)/N;
+		for(double t=t0; t<=t1; t+=dt){
+			f = -max(A(dt), A(t-dt))/min(B(t), B(t-dt));
+		}
+		return f;
+	}
+	
+	double pole_shifting(double t, double x){
+		return (A(t)+B(t)*feedback())*(x-cible);
+	}
+	
+	PbCauchy feedback_PbCauchy(){
+		function<double(double, double)> f = bind(&Controle::pole_shifting, this, placeholders::_1, placeholders::_2);
+		return PbCauchy(x0, f);
+	};
+	
 };
 
 
