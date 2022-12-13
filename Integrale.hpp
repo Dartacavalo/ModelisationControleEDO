@@ -24,8 +24,8 @@ class Integrale{
 	// Le constructeur de la classe integrale
 	Integrale(double _a, double _b, function<double(double)> _fct_integrande, unsigned long long _N);
 	
-	double point_milieu();	// Integrale par la methode du point milieu
-	double simpson();		// Integrale par la methode de Simpson
+	double point_milieu() const;	// Integrale par la methode du point milieu
+	double simpson() const;		    // Integrale par la methode de Simpson
 };
 
 

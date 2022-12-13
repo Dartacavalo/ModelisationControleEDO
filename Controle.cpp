@@ -8,7 +8,8 @@
 
 #include "Controle.hpp"
 
-double Controle::R(double t, double s){
+double Controle::R(double t, double s) const
+{
 	Integrale int_A(s, t, A, N);
 	if( methode_integration == "Simpson"){
 		return exp(int_A.simpson());
@@ -18,11 +19,13 @@ double Controle::R(double t, double s){
 	}
 }
 
-double Controle::gramian_integrand(double s){
+double Controle::gramian_integrand(double s) const
+{
 	return R(t1, s)*R(t1, s)*B(s)*B(s);
 }
 
-double Controle::Gramian(){
+double Controle::Gramian() const
+{
 	function<double(double)> gramian_int = bind(&Controle::gramian_integrand, this, placeholders::_1);
 	   Integrale gramian(t0, t1, gramian_int, N);
 	   if( methode_integration == "Simpson"){
@@ -31,33 +34,39 @@ double Controle::Gramian(){
 	   else{
 		   return gramian.point_milieu();
 	   }
-   }
+}
 
-double Controle::u(double s){
+double Controle::u(double s) const
+{
 	double y = 1./Gramian()*(cible- R(t1,t0)*x0);
 	   return B(s)*R(t1,s)*y;
-   }
+}
 
-double Controle::controle_second_membre(double t, double x){
+double Controle::controle_second_membre(double t, double x) const
+{
 	return A(t)*x + B(t)*u(t);
-   }
+}
 
-PbCauchy Controle::controle_PbCauchy(){
+PbCauchy Controle::controle_PbCauchy() const
+{
 	function<double(double, double)> controle_scd_mb = bind(&Controle::controle_second_membre, this, placeholders::_1, placeholders::_2);
 	return PbCauchy(x0, controle_scd_mb);
-};
+}
 
-double Controle::integrande_sol_exacte(double s){
+double Controle::integrande_sol_exacte(double s) const
+{
 	return R(t1, s)*B(s)*u(s);
 }
 
-double Controle::controle_sol_exacte(){
+double Controle::controle_sol_exacte() const
+{
 	function<double(double)> integ_sol_exacte = bind(&Controle::integrande_sol_exacte, this, placeholders::_1);
 	Integrale terme(t0, t1, integ_sol_exacte, N);
 	return R(t1, t0)*x0 + terme.simpson();
 }
 
-double Controle::feedback(){
+double Controle::feedback() const
+{
 	double f = 0.;
 	double dt = (t1-t0)/N;
 	for(double t=t0; t<=t1; t+=dt){
@@ -66,13 +75,15 @@ double Controle::feedback(){
 	return f;
 }
 
-double Controle::pole_shifting(double t, double x){
+double Controle::pole_shifting(double t, double x) const
+{
 	double f = feedback();
 	double d = -cible*(A(t)+B(t)*f);
-	return (A(t)+B(t)*f)*x  + d;
+	return (A(t)+B(t)*f)*x + d;
 }
 
-PbCauchy Controle::feedback_PbCauchy(){
+PbCauchy Controle::feedback_PbCauchy() const
+{
 	function<double(double, double)> f = bind(&Controle::pole_shifting, this, placeholders::_1, placeholders::_2);
 	return PbCauchy(x0, f);
 };

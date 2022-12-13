@@ -11,7 +11,7 @@ Integrale::Integrale(double _a, double _b, function<double(double)> _fct_integra
 	h = (b-a)/N;
 }
 
-double Integrale::point_milieu(){
+double Integrale::point_milieu() const{
 	double res = 0;
 	for(unsigned long long i = 0; i<N; i++){
 		res +=fct_integrande(a+(i+0.5)*h);
@@ -19,7 +19,7 @@ double Integrale::point_milieu(){
 	return res*h;
 }
 
-double Integrale::simpson(){
+double Integrale::simpson() const{
 	double res = fct_integrande(a)+fct_integrande(b)+4*fct_integrande(a+h/2);
 	for(unsigned long long i=1; i<N; i++){
 		res+=2*fct_integrande(a + i*h)+4*fct_integrande(a+(i+0.5)*h);

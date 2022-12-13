@@ -5,7 +5,7 @@
 
 using namespace std; 
 
-Schema *CasTest::def_schema(unsigned long long n)
+Schema *CasTest::def_schema(unsigned long long n) const
 {
     if (type_schema == "EuExp")
     {
@@ -56,12 +56,12 @@ void CasTest::calcul_erreur_totale()
     // c'est le cas mais bon, à revoir peut être
 }
 
-double CasTest::calcul_pente_max()
+double CasTest::calcul_pente_max() const
 {
     return (log(erreur_max[h.size() - 1]) - log(erreur_max[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
 
-double CasTest::calcul_pente_L2()
+double CasTest::calcul_pente_L2() const
 {
     return (log(erreur_L2[h.size() - 1]) - log(erreur_L2[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
@@ -111,7 +111,7 @@ void CasTest::error_export()
     gnuplot_input_file2.close();
 }
 
-void CasTest::exact_export(double n)
+void CasTest::exact_export(double n) const
 {
     string nom_solution_exacte = nom_schema + "_solution_exacte.txt";
     ofstream solution_exacte;

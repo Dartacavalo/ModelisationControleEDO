@@ -31,18 +31,18 @@ class CasTest
         : pbcauchy(_pbcauchy), fct_sol_exacte(_fct_sol_exacte), a(_a), b(_b), N_min_erreurs(_N_min),
           N_max_erreurs(_N_max), pas_erreurs(_pas), nom_schema(_nom_schema), type_schema(_type_schema){};
 
-    Schema *def_schema(unsigned long long n); // Definition d'un schema numerique en tant que pointeur
+    Schema *def_schema(unsigned long long n) const; // Definition d'un schema numerique en tant que pointeur, donc methode constante
 
 	
 	// Methodes virtuelles pour les calculs de l'erreur dans les differents schemas
     void calcul_erreur(unsigned long long n); // Calcul de l'erreur pour un seul schema et stockage dans un vecteur
     void calcul_erreur_totale(); // Calcul de l'erreur totale sur l'ensemble des schema
 
-    double calcul_pente_max(); // Calcul de la pente de l'erreur en norme sup
-    double calcul_pente_L2();  // Calcul de la pente de l'erreur en norme 2
+    double calcul_pente_max() const; // Calcul de la pente de l'erreur en norme sup
+    double calcul_pente_L2() const;  // Calcul de la pente de l'erreur en norme 2
 	
     void error_export();			// Export de l'erreur
-    void exact_export(double n);	// Export de la solution exacte
+    void exact_export(double n) const;	// Export de la solution exacte
     
 };
 
