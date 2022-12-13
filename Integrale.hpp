@@ -15,17 +15,17 @@ using namespace std;
 
 class Integrale{
 	public :
-	double a, b;								// Les bornes de l'integrale
-	function<double(double)> fct_integrande;	// La fonction a integrer
-	unsigned long long N;						// Le nombre de divisions de l'intervalle [a,b]
+	double a, b;							 // Les bornes de l'integrale
+	function<double(double)> fct_integrande; // La fonction a integrer
+	unsigned long long N;				     // Le nombre de divisions de l'intervalle [a,b]
 	
-	double h; 									// Le pas d'integration
+	double h; // Le pas d'integration
 	
 	// Le constructeur de la classe integrale
 	Integrale(double _a, double _b, function<double(double)> _fct_integrande, unsigned long long _N);
 	
-	double point_milieu() const;	// Integrale par la methode du point milieu
-	double simpson() const;		    // Integrale par la methode de Simpson
+	double point_milieu() const; // Integrale par la methode du point milieu
+	double simpson() const;		 // Integrale par la methode de Simpson
 };
 
 

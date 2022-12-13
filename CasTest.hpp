@@ -36,12 +36,12 @@ class CasTest
 	
 	// Methodes virtuelles pour les calculs de l'erreur dans les differents schemas
     void calcul_erreur(unsigned long long n); // Calcul de l'erreur pour un seul schema et stockage dans un vecteur
-    void calcul_erreur_totale(); // Calcul de l'erreur totale sur l'ensemble des schema
+    void calcul_erreur_totale();			  // Calcul de l'erreur totale sur l'ensemble des schema
 
     double calcul_pente_max() const; // Calcul de la pente de l'erreur en norme sup
     double calcul_pente_L2() const;  // Calcul de la pente de l'erreur en norme 2
 	
-    void error_export();			// Export de l'erreur
+    void error_export();			    // Export de l'erreur
     void exact_export(double n) const;	// Export de la solution exacte
     
 };

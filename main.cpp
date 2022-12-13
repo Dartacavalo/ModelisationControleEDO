@@ -115,10 +115,6 @@ double controle_gaussienne(double t, double x){
 //Prochaine étape définir ce pb dans une classe
 //************************************************************//
 
-
-
-
-
 int main()
 {
     double const a = -1.5;
@@ -133,11 +129,11 @@ int main()
 
 	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
     EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
-    schema_euler_gaussien_controle.calcul();
+    schema_euler_gaussien_controle.solve();
     schema_euler_gaussien_controle.expor();
 	
 	EulerExplicite schema_euler_gaussien_feedback(a, b1, N, "poleshifitng", gaussienne.feedback_PbCauchy());
-	schema_euler_gaussien_feedback.calcul();
+	schema_euler_gaussien_feedback.solve();
 	schema_euler_gaussien_feedback.expor();
 	
 	return 0;
@@ -149,7 +145,7 @@ int main()
 //
 //	PbCauchy pbcauchy_gaussien = PbCauchy(x0, F3);
 //    EulerExplicite schema_euler_gaussien(a, b, N, "schema_EDO_EuExp", pbcauchy_gaussien);
-//    schema_euler_gaussien.calcul();
+//    schema_euler_gaussien.solve();
 //    schema_euler_gaussien.expor();
 
 //    CasTest erreur_gaussienne =

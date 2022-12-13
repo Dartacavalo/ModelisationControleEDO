@@ -20,7 +20,7 @@ void Schema::expor()
 {
     ofstream schema_EDO;
     schema_EDO.open(nom + ".txt");
-    calcul();
+    solve();
     for (unsigned long long j = 0; j <= N; j++)
     {
         schema_EDO << t_val[j] << " " << x_val[j] << endl;
@@ -38,7 +38,7 @@ void Schema::expor()
     gnuplot_input_file.close();
 }
 
-void EulerExplicite::calcul()
+void EulerExplicite::solve()
 {
     for (unsigned long long i = 1; i <= N; i++)
     {
@@ -61,7 +61,7 @@ void RungeKutta::maj_k()
     k = (k1 + 2 * k2 + 2 * k3 + k4) / 6;
 }
 
-void RungeKutta::calcul()
+void RungeKutta::solve()
 {
     for (unsigned long long i = 1; i <= N; i++)
     {

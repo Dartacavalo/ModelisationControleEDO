@@ -10,13 +10,13 @@ Schema *CasTest::def_schema(unsigned long long n) const
     if (type_schema == "EuExp")
     {
         EulerExplicite *schema = new EulerExplicite(a, b, n, nom_schema, pbcauchy);
-        schema->calcul();
+        schema->solve();
         return schema;
     }
     else /*if (type_schema == "RK")*/
     {
         RungeKutta *schema = new RungeKutta(a, b, n, nom_schema, pbcauchy);
-        schema->calcul();
+        schema->solve();
         return schema;
     }
 }
