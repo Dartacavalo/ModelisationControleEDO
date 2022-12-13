@@ -30,21 +30,25 @@ public:
 	function<double(double)> A, B; // Les coefficients non autonomes de notre probleme
 	const unsigned long long N; // Le pas d'integration
 	
+	// Le constructeur de la classe controle
 	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration), A(_A), B(_B) {}
 	
+	// Methodes responsables du calcul du controle (voir le README pour les details mathematiques)
+	double R(double t, double s); 						// La resolvante
+	double gramian_integrand(double s);					// La fonction a integrer
+	double Gramian();									// L'integrale d'une 'matrice' gramienne
+	double u(double s);									// Le terme de controle
+	double controle_second_membre(double t, double x);	// La nouvelle fonction second membre controlee
+	PbCauchy controle_PbCauchy();						// Le nouveau probleme de Cauchy avec le controle du second membre
 	
-	double R(double t, double s);
-	double gramian_integrand(double s);
-	double Gramian();
-	double u(double s);
-	double controle_second_membre(double t, double x);
-	PbCauchy controle_PbCauchy();
-	double integrande_sol_exacte(double s);
-	double controle_sol_exacte();
+	// Methodes responsables du calcul de la solution exacte du probleme de Cauchy controle
+	double integrande_sol_exacte(double s);				// Integration de la solution exacte
+	double controle_sol_exacte();						// Solution exacte
 	
-	double feedback();
-	double pole_shifting(double t, double x);
-	PbCauchy feedback_PbCauchy();
+    // Methodes responsables du calcul de feedback par le theoreme de poleshifting
+	double feedback();									// Le calcul du feedback
+	double pole_shifting(double t, double x);			// La nouvelle fonction second membre avec le feedback par pole shifting
+	PbCauchy feedback_PbCauchy();						// Le nouveau probleme de Cauchy pour le theoreme de pole shifting
 	
 };
 

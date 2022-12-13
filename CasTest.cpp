@@ -131,7 +131,3 @@ void CasTest::exact_export(double n)
     solution_exacte.close();
     delete schema;
 }
-
-// Questions:
-// - comment faire EDO->x0 = fct_sol_exacte(schema->a) ?
-// - le fiichier erreur par schema ? Rajouter ligne qui indique le type de schema
