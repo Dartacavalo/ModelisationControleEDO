@@ -15,7 +15,7 @@ class CasTest
     // les paramètres de test
     double a, b;                         					// l'intervalle de calcul
     const unsigned long long N_min_erreurs, N_max_erreurs;  // Le range de nos tests
-    const unsigned long long pas_erreurs;                   // Le pas
+    const unsigned long long pas_erreurs;                   // Le pas pour le calcul des erreurs
     string nom_schema;										// Le nom du schema pour le fichier d'export
     string type_schema;										// Le type de schema numerique
 
