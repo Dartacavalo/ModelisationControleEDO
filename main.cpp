@@ -1,11 +1,8 @@
-#include "CasTest.hpp"
-#include "PbCauchy.hpp"
-#include "Solver.hpp"
-#include "Controle.hpp"
-#include <iostream>
+#include <math.h>
 
-#include <vector>
-#include <functional>
+#include "Schema.hpp"
+#include "Controle.hpp"
+
 
 using namespace std;
 double F1(double t, double x)

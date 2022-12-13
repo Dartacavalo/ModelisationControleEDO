@@ -8,10 +8,7 @@
 #ifndef Controle_hpp
 #define Controle_hpp
 
-
 #include <stdio.h>
-#include <functional>
-#include <math.h>
 #include <string>
 
 #include "PbCauchy.hpp"

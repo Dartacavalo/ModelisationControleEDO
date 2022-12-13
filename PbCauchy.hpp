@@ -10,8 +10,7 @@ condition initale et fonction second membre
 
 #include <fstream>
 #include <functional>
-#include <math.h>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 

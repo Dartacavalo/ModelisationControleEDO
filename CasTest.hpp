@@ -1,14 +1,7 @@
 #ifndef CasTest_hpp
 #define CasTest_hpp
 
-#include <functional>
-#include <iostream>
-#include <math.h>
-#include <stdio.h>
-#include <vector>
-
-#include "PbCauchy.hpp"
-#include "Solver.hpp"
+#include "Schema.hpp"
 
 using namespace std;
 
@@ -38,7 +31,7 @@ class CasTest
         : pbcauchy(_pbcauchy), fct_sol_exacte(_fct_sol_exacte), a(_a), b(_b), N_min_erreurs(_N_min),
           N_max_erreurs(_N_max), pas_erreurs(_pas), nom_schema(_nom_schema), type_schema(_type_schema){};
 
-    Solver *def_schema(unsigned long long n); // Definition d'un schema numerique en tant que pointeur
+    Schema *def_schema(unsigned long long n); // Definition d'un schema numerique en tant que pointeur
 
 	
 	// Methodes virtuelles pour les calculs de l'erreur dans les differents schemas

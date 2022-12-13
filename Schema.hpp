@@ -8,15 +8,15 @@ Euler Explicite et Runge Kutta d'ordre 4.
 #ifndef Solver_hpp
 #define Solver_hpp
 
-#include "PbCauchy.hpp"
-#include <functional>
-#include <stdio.h>
 #include <string>
 #include <vector>
 
+#include "PbCauchy.hpp" 
+
+
 using namespace std;
 
-class Solver
+class Schema
 {
   public:
     PbCauchy EDO;
@@ -37,32 +37,32 @@ class Solver
     double t;
 
     // Constructeur de la classe
-    Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N);
+    Schema(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N);
 
     virtual void calcul(){};  // Calcule la solution approchee
 
     void expor();   // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
     
-    virtual ~Solver(){};  // Rajouter un destructeur virtuel qui appelle le destructeur de par défaut de chaque classe
+    virtual ~Schema(){};  // Rajouter un destructeur virtuel qui appelle le destructeur de par défaut de chaque classe
 };
 
-class EulerExplicite : public Solver
+class EulerExplicite : public Schema
 {
   public:
 	// Constructeur de la classe fille pour le schema d'Euler
     EulerExplicite(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
-        : Solver(_EDO, _nom, _a, _b, _N){};
+        : Schema(_EDO, _nom, _a, _b, _N){};
 
     void calcul();  // Calcul de la solution avec le schema d'Euler
 };
 
-class RungeKutta : public Solver
+class RungeKutta : public Schema
 {
   public:
     double k, k1, k2, k3, k4;
 	// Constructeur de la classe fille pour le schema Runge-Kutta d'odre 4
     RungeKutta(double _a, double _b, unsigned long long _N, string _nom, PbCauchy _EDO)
-        : Solver(_EDO, _nom, _a, _b, _N){};
+        : Schema(_EDO, _nom, _a, _b, _N){};
 
 	
     void maj_k(); 	// mise a jour de k pour chaque pas de la methode de Runge Kutta

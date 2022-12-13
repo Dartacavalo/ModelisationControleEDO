@@ -1,17 +1,11 @@
-#include "CasTest.hpp"
-#include "PbCauchy.hpp"
-#include "Solver.hpp"
-
 #include <algorithm>
-#include <functional>
-#include <iostream>
 #include <math.h>
-#include <stdio.h>
-#include <vector>
+
+#include "CasTest.hpp"
 
 using namespace std; 
 
-Solver *CasTest::def_schema(unsigned long long n)
+Schema *CasTest::def_schema(unsigned long long n)
 {
     if (type_schema == "EuExp")
     {
@@ -33,7 +27,7 @@ void CasTest::calcul_erreur(unsigned long long n)
     double err_max = 0;
     double ft = 0;
     double fx = 0;
-    Solver *schema = def_schema(n);
+    Schema *schema = def_schema(n);
     h.push_back(schema->dt);
     // cout << "t size = " << schema->t_val.size() << endl;
     for (unsigned long long i = 0; i < schema->t_val.size(); i++)
@@ -122,7 +116,7 @@ void CasTest::exact_export(double n)
     string nom_solution_exacte = nom_schema + "_solution_exacte.txt";
     ofstream solution_exacte;
     solution_exacte.open(nom_solution_exacte);
-    Solver *schema = def_schema(n);
+    Schema *schema = def_schema(n);
     for (double i = 0; i < n; i++)
     {
         solution_exacte << schema->t_val[i] << " " << fct_sol_exacte(schema->t_val[i], schema->EDO.x0, a) << endl;

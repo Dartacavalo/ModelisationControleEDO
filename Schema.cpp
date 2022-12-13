@@ -1,15 +1,8 @@
-#include "Solver.hpp"
-#include "PbCauchy.hpp"
-
-#include <functional>
-#include <iostream>
-#include <stdio.h>
-#include <string>
-#include <vector>
+#include "Schema.hpp"
 
 using namespace std;
 
-Solver::Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N)
+Schema::Schema(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N)
     : EDO(_EDO), nom(_nom), a(_a), b(_b), N(_N)
 {
     // on calcule le pas
@@ -23,7 +16,7 @@ Solver::Solver(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long l
     t_val.push_back(a);
 }
 
-void Solver::expor()
+void Schema::expor()
 {
     ofstream schema_EDO;
     schema_EDO.open(nom + ".txt");
