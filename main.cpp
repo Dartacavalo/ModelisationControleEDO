@@ -135,7 +135,7 @@ int main()
 //    const unsigned long long pas_erreurs = 100;
 
 	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
-    EulerExplicite schema_euler_gaussien_controle(a, b1, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
+    EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
     schema_euler_gaussien_controle.calcul();
     schema_euler_gaussien_controle.expor();
 	
