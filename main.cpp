@@ -8,7 +8,6 @@
 #include <functional>
 
 using namespace std;
-// F1(t, x) = -2*t^2
 double F1(double t, double x)
 {
     return -2 * t * x;
@@ -127,8 +126,8 @@ int main()
 {
     double const a = -1.5;
     double const b = 1.5;
-	double const b1 = 10;
-    double const x0 = 1;
+	double const b1 = 5;
+    double const x0 = 0;
     const unsigned long long N = 100;
 	double const cible = 6;
 //    const unsigned long long N_min = 1000;
@@ -136,7 +135,7 @@ int main()
 //    const unsigned long long pas_erreurs = 100;
 
 	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
-    EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
+    EulerExplicite schema_euler_gaussien_controle(a, b1, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
     schema_euler_gaussien_controle.calcul();
     schema_euler_gaussien_controle.expor();
 	
@@ -144,7 +143,7 @@ int main()
 	schema_euler_gaussien_feedback.calcul();
 	schema_euler_gaussien_feedback.expor();
 	
-	
+	return 0;
 
 //
 //

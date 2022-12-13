@@ -93,7 +93,9 @@ public:
 	}
 	
 	double pole_shifting(double t, double x){
-		return (A(t)+B(t)*feedback())*(x-cible);
+		double f = feedback();
+		double d = -cible*(A(t)+B(t)*f);
+		return (A(t)+B(t)*f)*x  + d;
 	}
 	
 	PbCauchy feedback_PbCauchy(){
