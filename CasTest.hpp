@@ -20,8 +20,8 @@ class CasTest
     string type_schema;										// Le type de schema numerique
 
     // les nouveaux objets à construire
-    vector<double> erreur_max; // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
-    vector<double> erreur_L2;  // Vecteur qui stocke le calcul de l'erreur totale en norme infinie
+    vector<double> erreur_max; // Stocke le calcul de l'erreur totale en norme infinie
+    vector<double> erreur_L2;  // Stocke le calcul de l'erreur totale en norme 2
     vector<double> h;          // Les abscisses
 
     // Le constructeur de CasTest
@@ -31,18 +31,17 @@ class CasTest
         : pbcauchy(_pbcauchy), fct_sol_exacte(_fct_sol_exacte), a(_a), b(_b), N_min_erreurs(_N_min),
           N_max_erreurs(_N_max), pas_erreurs(_pas), nom_schema(_nom_schema), type_schema(_type_schema){};
 
-    Schema *def_schema(unsigned long long n) const; // Definition d'un schema numerique en tant que pointeur, donc methode constante
-
+    Schema *def_schema(unsigned long long n) const; // Definition d'un pointeur vers un schema numerique
 	
 	// Methodes virtuelles pour les calculs de l'erreur dans les differents schemas
-    void calcul_erreur(unsigned long long n); // Calcul de l'erreur pour un seul schema et stockage dans un vecteur
-    void calcul_erreur_totale();			  // Calcul de l'erreur totale sur l'ensemble des schema
+    void calcul_erreur(unsigned long long n); // Calcul de l'erreur pour un seul schema
+    void calcul_erreur_totale();			  // Calcul de l'erreur sur l'ensemble des schemas
 
-    double calcul_pente_max() const; // Calcul de la pente de l'erreur en norme sup
-    double calcul_pente_L2() const;  // Calcul de la pente de l'erreur en norme 2
+    double calcul_pente_max() const;
+    double calcul_pente_L2() const;
 	
-    void error_export();			    // Export de l'erreur
-    void exact_export(double n) const;	// Export de la solution exacte
+    void error_export();
+    void exact_export(double n) const;
     
 };
 

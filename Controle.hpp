@@ -42,7 +42,7 @@ public:
 	double controle_sol_exacte() const;			   // Solution exacte
 	
     // Methodes responsables du calcul de feedback par le theoreme de poleshifting
-	double feedback() const;						 // Le calcul du feedback
+	double feedback() const;
 	double pole_shifting(double t, double x) const;	 // La nouvelle fonction second membre avec le feedback par pole shifting
 	PbCauchy feedback_PbCauchy() const;				 // Le nouveau probleme de Cauchy pour le theoreme de pole shifting
 	
