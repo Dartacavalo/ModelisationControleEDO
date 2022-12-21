@@ -8,6 +8,24 @@
 
 #include "Controle.hpp"
 
+Controle::Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration), A(_A), B(_B)
+{
+	if (!(_methode_integration == "Simpson" || _methode_integration == "PtMilieu"))
+	{
+		try
+		{
+			throw(_methode_integration);
+		}
+		
+		catch (string meth_integration)
+		{
+			cout<<"La méthode d'intégration doit être soit la méthode \"Simpson\"; soit la méthode : \"PtMilieu\", au lieu de la méthode choisie \""<<meth_integration<<"\"."<<endl;
+			cout<<"Par défaut, la méthode choisie est la méthode \"Simpson\""<<endl;
+			methode_integration = "Simpson";
+		}
+	}
+}
+
 double Controle::R(double t, double s) const
 {
 	Integrale int_A(s, t, A, N);

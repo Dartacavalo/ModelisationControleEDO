@@ -118,7 +118,7 @@ double controle_gaussienne(double t, double x){
 int main()
 {
     double const a = -1.5;
-    double const b = 1.5;
+    double const b = 2;
 	double const b1 = 5;
     double const x0 = 0;
     const unsigned long long N = 100;
@@ -154,12 +154,4 @@ int main()
 //	erreur_gaussienne.exact_export(100);
 }
 
-double integrand(double x){
-	return 4*sqrt(1-x*x);
-}
 
-// Séance 13 Novembre:
-/*prochaine fois : gnuplot, cas test pour le schema: constante et expo,
-classe: cas test: PbCauchy et Sol exacte ou fichier test.cpp avec erreur et ordre de convergence du schema et
-representer l'erreur en fonction de h autres types de schemas
-*/

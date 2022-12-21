@@ -22,12 +22,12 @@ public:
 	double const x0; 				  // La condition intiale
 	double const cible; 			  // Le point auquel on souhaite arriver au temps final
 	double const t0, t1; 			  // L'intervalle d'etude
-	string const methode_integration; // La methode d'inetegration choisie
+	string methode_integration; // La methode d'inetegration choisie
 	function<double(double)> A, B;    // Les coefficients non autonomes de notre probleme
 	const unsigned long long N;       // Le pas d'integration
 	
-	// Le constructeur de la classe controle non Autonome en 1D
-	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration), A(_A), B(_B) {}
+	// Le constructeur de la classe controle non Autonome en 1D, avec l'exception
+	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B);
 	
 	// Methodes responsables du calcul du controle (voir le README pour les details mathematiques)
 	double R(double t, double s) const; 				     // La resolvante
