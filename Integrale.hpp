@@ -14,13 +14,14 @@
 using namespace std;
 
 class Integrale{
-	public :
-	double a, b;						 // Les bornes de l'integrale
+	private :
+	double const a, b;						 // Les bornes de l'integrale
 	function<double(double)> integrande;
 	unsigned long long N;				 // Le nombre de divisions de l'intervalle [a,b]
 	
 	double h; // Le pas d'integration
 	
+	public:
 	// Le constructeur de la classe integrale
 	Integrale(double _a, double _b, function<double(double)> _integrande, unsigned long long _N);
 	
