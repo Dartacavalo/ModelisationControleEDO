@@ -49,9 +49,6 @@ class Controle{
 	
 };
 
-
-
-
 #endif /* Controle_hpp */
 
-//On commence avec un pb de cauchy, puis on change en un schema, pour avoir acces au a et b
+

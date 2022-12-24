@@ -130,11 +130,11 @@ int main()
 	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
     EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
     schema_euler_gaussien_controle.solve();
-    schema_euler_gaussien_controle.expor();
+    schema_euler_gaussien_controle.plot();
 	
 	EulerExplicite schema_euler_gaussien_feedback(a, b1, N, "poleshifitng", gaussienne.feedback_PbCauchy());
 	schema_euler_gaussien_feedback.solve();
-	schema_euler_gaussien_feedback.expor();
+	schema_euler_gaussien_feedback.plot();
 	
 	return 0;
 

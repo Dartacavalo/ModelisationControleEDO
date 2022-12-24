@@ -16,7 +16,7 @@ Schema::Schema(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long l
     t_val.push_back(a);
 }
 
-void Schema::expor()
+void Schema::plot()
 {
     ofstream schema_EDO;
     schema_EDO.open(nom + ".txt");

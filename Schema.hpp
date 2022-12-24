@@ -38,7 +38,7 @@ class Schema
     Schema(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long long _N);
 
     virtual void solve(){}; // Calcule la solution approchee
-    void expor();           // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
+    void plot();           // Exporte la sol dans un fichier a donner a gnu, mais ne change que le nom de l'export
     
     virtual ~Schema(){};  // Rajouter un destructeur virtuel qui appelle le destructeur de par défaut de chaque classe
 };
