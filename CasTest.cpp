@@ -1,28 +1,22 @@
-#include "CasTest.hpp"
-#include "PbCauchy.hpp"
-#include "Solver.hpp"
-
 #include <algorithm>
-#include <functional>
-#include <iostream>
 #include <math.h>
-#include <stdio.h>
-#include <vector>
 
-using namespace std;
+#include "CasTest.hpp"
 
-Solver *CasTest::def_schema(unsigned long long n)
+using namespace std; 
+
+Schema *CasTest::def_schema(unsigned long long n) const
 {
     if (type_schema == "EuExp")
     {
         EulerExplicite *schema = new EulerExplicite(a, b, n, nom_schema, pbcauchy);
-        schema->calcul();
+        schema->solve();
         return schema;
     }
     else /*if (type_schema == "RK")*/
     {
         RungeKutta *schema = new RungeKutta(a, b, n, nom_schema, pbcauchy);
-        schema->calcul();
+        schema->solve();
         return schema;
     }
 }
@@ -33,7 +27,7 @@ void CasTest::calcul_erreur(unsigned long long n)
     double err_max = 0;
     double ft = 0;
     double fx = 0;
-    Solver *schema = def_schema(n);
+    Schema *schema = def_schema(n);
     h.push_back(schema->dt);
     // cout << "t size = " << schema->t_val.size() << endl;
     for (unsigned long long i = 0; i < schema->t_val.size(); i++)
@@ -62,12 +56,12 @@ void CasTest::calcul_erreur_totale()
     // c'est le cas mais bon, à revoir peut être
 }
 
-double CasTest::calcul_pente_max()
+double CasTest::calcul_pente_max() const
 {
     return (log(erreur_max[h.size() - 1]) - log(erreur_max[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
 
-double CasTest::calcul_pente_L2()
+double CasTest::calcul_pente_L2() const
 {
     return (log(erreur_L2[h.size() - 1]) - log(erreur_L2[0])) / (log(h[h.size() - 1]) - log(h[0]));
 }
@@ -117,12 +111,12 @@ void CasTest::error_export()
     gnuplot_input_file2.close();
 }
 
-void CasTest::exact_export(double n)
+void CasTest::exact_export(double n) const
 {
     string nom_solution_exacte = nom_schema + "_solution_exacte.txt";
     ofstream solution_exacte;
     solution_exacte.open(nom_solution_exacte);
-    Solver *schema = def_schema(n);
+    Schema *schema = def_schema(n);
     for (double i = 0; i < n; i++)
     {
         solution_exacte << schema->t_val[i] << " " << fct_sol_exacte(schema->t_val[i], schema->EDO.x0, a) << endl;
@@ -131,7 +125,3 @@ void CasTest::exact_export(double n)
     solution_exacte.close();
     delete schema;
 }
-
-// Questions:
-// - comment faire EDO->x0 = fct_sol_exacte(schema->a) ?
-// - le fiichier erreur par schema ? Rajouter ligne qui indique le type de schema

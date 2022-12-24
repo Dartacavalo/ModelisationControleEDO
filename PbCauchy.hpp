@@ -10,20 +10,17 @@ condition initale et fonction second membre
 
 #include <fstream>
 #include <functional>
-#include <math.h>
-#include <vector>
+#include <iostream>
 
 using namespace std;
 
 class PbCauchy
 {
   public:
-    // La condition initiale
-    double x0; // N'est pas constant c.f. classe Cas Test -> methode exacte
-    // x0 = x(t_0) = x (a)
-    // La fonction second membre
-    function<double(double, double)> fct_second_membre;
+	double x0;       									 // La condition initiale
+    function<double(double, double)> fct_second_membre;  // La fonction second membre
 
+	// Le constructeur de la classe 
     PbCauchy(double _x0, function<double(double, double)> _second_membre)
         : x0(_x0), fct_second_membre(_second_membre){};
 };
