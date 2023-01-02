@@ -6,37 +6,17 @@
 //
 #include "CasTest.hpp"
 #include "Controle.hpp"
+#include "FonctionsTest.hpp"
 
 #include <math.h>
 
 using namespace std;
 
-//****************************************************//
-//******* FCTS POUR TESTER LES SOLVERS D'EDOS ********//
-//****************************************************//
-
-double fct_sol_exacte_Gaussienne(double t, double x0, double a)
-{
-	return x0 * exp(-(t * t - a * a));
-}
-
-double fct_sol_exacte_EDO2(double t, double x0, double t0)
-{
-	return 1/(1/x0 - t - t0);
-}
-
-double fct_sol_exacte_EDO3(double t, double t0, double x0)
-{
-	return cos(t)*(x0/cos(t0)-2*cos(t)+2*cos(t0));
-}
-
-
-int mainTests()
+int Tests()
 {
 	//****** Parametres pour la resolution de l'EDO gaussienne *******//
 	double const a = -1.5;
 	double const b = 2;
-	double const b1 = 5;
 	double const x0 = 1;
 	const unsigned long long N = 100;
 	double const cible = 6;
@@ -44,7 +24,33 @@ int mainTests()
 	const unsigned long long N_max = 1000;
 	const unsigned long long pas_erreurs = 100;
 	
+	//*********** Tests Schemas Numeriques ***************//
+	PbCauchy gauss(x0, Gaussienne);
+	CasTest erreur_gaussienne_Euler_explicite =
+			CasTest(gauss, fct_sol_exacte_Gaussienne, a, b, N_min, N_max, pas_erreurs, "test_erreur_Euler_Explicite", "EuExp");
+		erreur_gaussienne_Euler_explicite.error_export();
 	
+	CasTest erreur_gaussienne_RK =
+			CasTest(gauss, fct_sol_exacte_Gaussienne, a, b, N_min, N_max, pas_erreurs, "test_erreur_RK", "RK");
+		erreur_gaussienne_RK.error_export();
+	
+	//********* Tests Controle ****************************//
+	Controle gaussienne(a, b, x0, cible, N, "Simpson", A, B);
+	
+	EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
+	schema_euler_gaussien_controle.solve();
+	vector<double> controle_gauss = schema_euler_gaussien_controle.x_val;
+	double erreur_controle = abs(controle_gauss[controle_gauss.size()-1]-cible)/cible*100;
+	cout<<"L'erreur entre le dernier point du schema controle et la cible est de  "<<erreur_controle<<"%."<<endl;
+	
+	//*********** Tests Methodes Integration ***************//
+
+	Integrale calculPi(0, 1, integrand, 100);
+		
+	cout<<"L'erreur du calcul de Pi par integration par la methode du point milieu est de "<<abs(M_PI-calculPi.point_milieu())/M_PI*100<<"%."<<endl;
+	cout<<"L'erreur du calcul de Pi par integration par la methode de Simpson est de "<<abs(M_PI-calculPi.simpson())/M_PI*100<<"%."<<endl;
 	
 	return 0;
 }
+
+

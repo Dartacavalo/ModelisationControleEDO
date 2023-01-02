@@ -1,47 +1,10 @@
 #include "Schema.hpp"
 #include "Controle.hpp"
+#include "FonctionsTest.hpp"
 
 #include <math.h>
 
 using namespace std;
-
-//****************************************************//
-//************** FCTS DU SOLVER D'EDOS ***************//
-//****************************************************//
-
-double Gaussienne(double t, double x)
-{
-    return -2 * t * x;
-}
-
-double EDO2(double t, double x)
-{
-	return x*x;
-}
-
-double EDO3(double t, double x)
-{
-	return sin(2*t)-tan(t)*x;
-}
-
-//******* FCTS POUR TESTER LE CONTROLE NON AUTONOME ********//
-
-double A(double t)
-{
-	return -2*t;
-}
-
-double A_EDO3(double t)
-{
-	return 1;
-}
-
-double B(double t)
-{
-	return 1;
-}
-
-//************************************************************//
 
 int main()
 {

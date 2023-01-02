@@ -82,6 +82,7 @@ double Controle::controle_sol_exacte() const
 	return R(t1, t0)*x0 + terme.simpson();
 }
 
+
 double Controle::feedback() const
 {
 	double f = 0.;

@@ -2,10 +2,11 @@
 //  FonctionsTest.cpp
 //  ProjetC++
 //
-//  Created by José Maria Marques on 01/01/2023.
+//  Created by José Maria Marques on 02/01/2023.
 //
-#include <stdio.h>
 #include <math.h>
+
+#include "FonctionsTest.hpp"
 
 //****************************************************//
 //************** FCTS DU SOLVER D'EDOS ***************//
@@ -16,24 +17,28 @@ double Gaussienne(double t, double x)
 	return -2 * t * x;
 }
 
-double fct_sol_exacte_Gaussienne(double t, double x0, double a)
-{
-	return x0 * exp(-(t * t - a * a));
-}
-
 double EDO2(double t, double x)
 {
 	return x*x;
 }
 
-double fct_sol_exacte_EDO2(double t, double x0, double t0)
-{
-	return 1/(1/x0 - t - t0);
-}
-
 double EDO3(double t, double x)
 {
 	return sin(2*t)-tan(t)*x;
+}
+
+//****************************************************//
+//* SOLUTIONS EXACTES POUR TESTER LES SOLVERS D'EDOS *//
+//****************************************************//
+
+double fct_sol_exacte_Gaussienne(double t, double x0, double a)
+{
+	return x0 * exp(-(t * t - a * a));
+}
+
+double fct_sol_exacte_EDO2(double t, double x0, double t0)
+{
+	return 1/(1/x0 - t - t0);
 }
 
 double fct_sol_exacte_EDO3(double t, double t0, double x0)
@@ -59,3 +64,8 @@ double B(double t)
 }
 
 //************************************************************//
+
+
+double integrand(double x){
+	return 4*sqrt(1-x*x);
+}
