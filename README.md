@@ -2,8 +2,9 @@
 
 L'accent est mis sur la programmation orientée objet, avec une abstraction faite sur la manière dont les objets sont structurés : problèmes de Cauchy, solveurs, méthodes de résolution.
 
+Les fonctions de la classe Controle, valables pour le contrôle non-autonôme de l'équation en 1D : $x'(t) \ = \ A(t) x(t) \ + \ B(t) u(t)$\\
 
-
+$$
 \begin{align*}
         \left
         \{
@@ -15,3 +16,4 @@ L'accent est mis sur la programmation orientée objet, avec une abstraction fait
         \end{array}  \ \ \  
     \right. 
 \end{align*}
+$$
