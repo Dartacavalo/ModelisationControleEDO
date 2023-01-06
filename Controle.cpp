@@ -5,7 +5,6 @@
 //  Created by José Maria Marques on 02/12/2022.
 //
 #include <math.h>
-
 #include "Controle.hpp"
 
 Controle::Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B):  t0(_t0), t1(_t1), x0(_x0), cible(_cible), N(_N), methode_integration(_methode_integration), A(_A), B(_B)
@@ -30,10 +29,10 @@ double Controle::R(double t, double s) const
 {
 	Integrale int_A(s, t, A, N);
 	if( methode_integration == "Simpson"){
-		return exp(int_A.simpson());
+		return x0*exp(int_A.simpson());
 	}
 	else{
-		return exp(int_A.point_milieu());
+		return x0*exp(int_A.point_milieu());
 	}
 }
 
@@ -82,6 +81,7 @@ double Controle::controle_sol_exacte() const
 	Integrale terme(t0, t1, integ_sol_exacte, N);
 	return R(t1, t0)*x0 + terme.simpson();
 }
+
 
 double Controle::feedback() const
 {

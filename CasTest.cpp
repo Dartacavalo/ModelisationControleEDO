@@ -50,8 +50,8 @@ void CasTest::calcul_erreur_totale()
     {
         calcul_erreur(n);
     }
-    cout << "pente L2 = " << calcul_pente_L2() << endl;
-    cout << "pente max = " << calcul_pente_max() << endl;
+    cout << "La pente de l'erreur en norme L2, associée au schéma du problème "<< nom_schema<<" vaut : " << calcul_pente_L2() << endl;
+    cout << "La pente de l'erreur en norme max, associée au schéma du problème "<< nom_schema<<" vaut : " << calcul_pente_max() << endl;
     // c'est un peut dodgy de faire ça comme ça, faut vérifier que h et erreur_L2 ont la même taille
     // c'est le cas mais bon, à revoir peut être
 }
