@@ -81,8 +81,8 @@ void CasTest::error_export()
 {
     ofstream erreur_schema_max;
     ofstream erreur_schema_L2;
-    string nom_erreur_max = nom_schema + "_erreur_schema_max.txt";
-    string nom_erreur_L2 = nom_schema + "_erreur_schema_L2.txt";
+    string nom_erreur_max = "gnuplot/" + nom_schema + "_erreur_schema_max.txt";
+    string nom_erreur_L2 = "gnuplot/" + nom_schema + "_erreur_schema_L2.txt";
     erreur_schema_max.open(nom_erreur_max);
     erreur_schema_L2.open(nom_erreur_L2);
     calcul_erreur_totale();
@@ -98,7 +98,7 @@ void CasTest::error_export()
     double hmax = *max_element(h.begin(), h.end());
 
     ofstream gnuplot_input_L2;
-    string gnuplot_name_L2 = "gnuplot_" + nom_schema + "_erreur_L2.bat";
+    string gnuplot_name_L2 = "gnuplot/gnuplot_" + nom_schema + "_erreur_L2.bat";
     gnuplot_input_L2.open(gnuplot_name_L2);
     gnuplot_input_L2 << "set logscale xy" << endl;
     gnuplot_input_L2 << "plot [" << hmin << ":" << hmax << "] '" << nom_erreur_L2 << "' with lines";
@@ -109,7 +109,7 @@ void CasTest::error_export()
     gnuplot_input_L2.close();
 
     ofstream gnuplot_input_max;
-    string gnuplot_name_max = "gnuplot_" + nom_schema + "_erreur_max.bat";
+    string gnuplot_name_max = "gnuplot/gnuplot_" + nom_schema + "_erreur_max.bat";
     gnuplot_input_max.open(gnuplot_name_max);
     gnuplot_input_max << "set logscale xy" << endl;
     gnuplot_input_max << "plot [" << hmin << ":" << hmax << "] '" << nom_erreur_max << "' with lines";
@@ -122,7 +122,7 @@ void CasTest::error_export()
 
 void CasTest::exact_export(double n) const
 {
-    string nom_solution_exacte = nom_schema + "_solution_exacte.txt";
+    string nom_solution_exacte = "gnuplot/" + nom_schema + "_solution_exacte.txt";
     ofstream solution_exacte;
     solution_exacte.open(nom_solution_exacte);
     Schema *schema = def_schema(n);

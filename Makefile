@@ -2,8 +2,7 @@ CC = g++
 PROGS = main tests
 FLAGS = -Wall
 SRC = code
-GNUPLOT = gnuplot_files
-DATA = data
+GNUPLOT = gnuplot
 
 all: $(PROGS)
 
@@ -29,4 +28,4 @@ $(SRC)/Schema.o: $(SRC)/Schema.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
 	$(CC) -c $< $(FLAGS) -o $@
 
 clean:
-	rm -f $(PROGS) $(SRC)/*.o $(DATA)/*.txt $(GNUPLOT)/*.bat
+	rm -f $(PROGS) $(SRC)/*.o $(GNUPLOT)/*.txt $(GNUPLOT)/*.bat

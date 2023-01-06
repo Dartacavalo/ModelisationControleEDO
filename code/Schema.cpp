@@ -31,7 +31,7 @@ Schema::Schema(PbCauchy _EDO, string _nom, double _a, double _b, unsigned long l
 void Schema::plot()
 {
     ofstream schema_EDO;
-    schema_EDO.open(nom + ".txt");
+    schema_EDO.open("gnuplot/" + nom + ".txt");
     solve();
     for (unsigned long long j = 0; j <= N; j++)
     {
@@ -40,9 +40,9 @@ void Schema::plot()
     schema_EDO.close();
 
     ofstream gnuplot_input_file;
-    string gnuplot_namefile = "gnuplot_" + nom + ".bat";
+    string gnuplot_namefile = "gnuplot/gnuplot_" + nom + ".bat";
     gnuplot_input_file.open(gnuplot_namefile);
-    gnuplot_input_file << "plot [" << a << ":" << b << "] '" << nom << ".txt' with lines" << endl;
+    gnuplot_input_file << "plot [" << a << ":" << b << "] 'gnuplot/" << nom << ".txt' with lines" << endl;
     string command = "gnuplot -p " + gnuplot_namefile;
     system(command.c_str());
     // ajouter les kwargs pour de plus jolis plots, à tester aussi !!
