@@ -4,6 +4,7 @@ L'accent est mis sur la programmation orientée objet, avec une abstraction fait
 
 Les fonctions représentées de la classe Controle, valables pour le contrôle en temps fini non-autonôme de l'équation en 1D : $x'(t) \ = \ A(t) x(t) \ + \ B(t) u(t)$
 
+$$
 \begin{align*}
         \begin{cases}
             u(t)& = B(t) \ \mathcal{R}(t_1, s)y \\
@@ -12,6 +13,7 @@ Les fonctions représentées de la classe Controle, valables pour le contrôle e
             \mathcal{R}(t, s)& = x_0 e^{\int_{s}^{t}A(t) dt}
         \end{cases}  \ \ \  
 \end{align*}
+$$
 
 La solution exacte de ce problème est donnée par :
 
