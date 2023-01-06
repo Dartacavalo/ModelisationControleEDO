@@ -52,5 +52,5 @@ int Tests()
 	
 	return 0;
 }
-
+int a = Tests();
 

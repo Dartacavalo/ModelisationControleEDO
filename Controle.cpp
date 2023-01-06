@@ -29,10 +29,10 @@ double Controle::R(double t, double s) const
 {
 	Integrale int_A(s, t, A, N);
 	if( methode_integration == "Simpson"){
-		return exp(int_A.simpson());
+		return x0*exp(int_A.simpson());
 	}
 	else{
-		return exp(int_A.point_milieu());
+		return x0*exp(int_A.point_milieu());
 	}
 }
 
