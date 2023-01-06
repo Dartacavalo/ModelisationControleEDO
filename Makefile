@@ -1,16 +1,34 @@
-progs = main.out
-flags = -Wall
+CC = g++
+PROGS = main tests
+FLAGS = -Wall
+SRC = code/
+EXEC = exec/
+COMPILED = objets/
+OBJETS = *.o
+SORTIES = *.txt *.bat
 
-all: $(progs)
+all: $(PROGS)
 
-main.out: main.cpp Solver.o CasTest.o
-	g++ -o $@ $^ $(flags)
+main: main.cpp FonctionsTest.o Controle.o Integrale.o Schema.o
+	$(CC) -o $@ $(COMPILED)$^ $(FLAGS)
 
-CasTest.o: CasTest.cpp Solver.hpp PbCauchy.hpp
-	g++ -c $< $(flags)
+tests: mainTests.cpp $(OBJETS)
+	$(CC) -o $@ $(COMPILED)$^ $(FLAGS)
 
-Solver.o: Solver.cpp Solver.hpp PbCauchy.hpp
-	g++ -c $< $(flags)
+FonctionsTest.o: FonctionsTest.cpp FonctionsTest.hpp
+	$(CC) -c $(SRC)$< $(FLAGS)
+
+Controle.o: Controle.cpp Integrale.hpp PbCauchy.hpp
+	$(CC) -c $(SRC)$< $(FLAGS)
+
+Integrale.o: Integrale.cpp Integrale.hpp
+	$(CC) -c $(SRC)$< $(FLAGS)
+
+CasTest.o: CasTest.cpp Schema.hpp PbCauchy.hpp
+	$(CC) -c $(SRC)$< $(FLAGS)
+
+Schema.o: Schema.cpp Schema.hpp PbCauchy.hpp
+	$(CC) -c $(SRC)$< $(FLAGS)
 
 clean:
-	rm *.o *.txt *.bat $(progs)
+	rm -f $(OBJETS) $(SORTIES) $(PROGS)

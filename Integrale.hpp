@@ -1,33 +1,32 @@
-//
-//  Integrale.hpp
-//  ProjetC++
-//
-//  Created by José Maria Marques on 29/11/2022.
-//
+/*
+
+Déclaration d'une classe de calcul d'intégrale avec deux méthodes :
+celle du point milieu et celle de simpson
+
+*/
 
 #ifndef Integrale_hpp
 #define Integrale_hpp
 
-#include <stdio.h>
 #include <functional>
 
 using namespace std;
 
-class Integrale{
-	private:
-	double const a, b;				     // Les bornes de l'integrale
-	function<double(double)> integrande;
-	unsigned long long N;				 // Le nombre de divisions de l'intervalle [a,b]
-	
-	double h; // Le pas d'integration
-	
-	public:
-	// Le constructeur de la classe integrale
-	Integrale(double _a, double _b, function<double(double)> _integrande, unsigned long long _N);
-	
-	// Les methodes d'integration
-	double point_milieu() const; // Methode du point milieu
-	double simpson() const;		 // Methode de Simpson
+class Integrale
+{
+  private:
+    double a, b;                             // Intervalle d'intégration numérique
+    function<double(double)> fct_integrande; // Fonction à intégrer
+    unsigned long long N;                    // Nombre d'intervalles d'intégration
+    double h;                                // Pas d'integration
+
+  public:
+    // Constructeur de la classe integrale
+    Integrale(double _a, double _b, function<double(double)> fct_integrande, unsigned long long _N);
+
+    // Méthodes d'integration
+    double point_milieu() const; // Méthode du point milieu
+    double simpson() const;      // Méthode de Simpson
 };
 
 #endif /* Integrale_hpp */

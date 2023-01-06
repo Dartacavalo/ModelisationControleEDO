@@ -1,14 +1,13 @@
-//
-//  FonctionsTest.hpp
-//  ProjetC++
-//
-//  Created by José Maria Marques on 02/01/2023.
-//
+/*
+
+Déclaration des fonctions tests à utiliser depuis les autres fichiers
+
+*/
 
 #ifndef FonctionsTest_hpp
 #define FonctionsTest_hpp
 
-#include <stdio.h>
+#include <math.h>
 
 //****************************************************//
 //************** FCTS DU SOLVER D'EDOS ***************//

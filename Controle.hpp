@@ -1,54 +1,54 @@
-//
-//  Controle.hpp
-//  ProjetC++
-//
-//  Created by José Maria Marques on 02/12/2022.
-//
+/*
+
+Déclaration d'une classe de contrôle et de ses fonctions membres
+
+*/
 
 #ifndef Controle_hpp
 #define Controle_hpp
 
-#include <stdio.h>
-#include <string>
-
-#include "PbCauchy.hpp"
 #include "Integrale.hpp"
+#include "PbCauchy.hpp"
+
+#include <iostream>
+#include <string>
 
 using namespace std;
 using namespace placeholders;
 
-class Controle{
-	private:
-	double const x0; 				  // La condition intiale
-	double const cible; 			  // Le point auquel on souhaite arriver au temps final
-	double const t0, t1; 			  // L'intervalle d'etude
-	string methode_integration;       // La methode d'inetegration choisie
-	function<double(double)> A, B;    // Les coefficients non autonomes de notre probleme
-	const unsigned long long N;       // Le pas d'integration
-	
-	public:
-	// Le constructeur de la classe controle non Autonome en 1D, avec l'exception
-	Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N, string _methode_integration, function<double(double)> _A, function<double(double)> _B);
-	
-	// Methodes responsables du calcul du controle (voir le README pour les details mathematiques)
-	double R(double t, double s) const; 				      // La resolvante
-	double gramian_integrand(double s) const;			  	  // La fonction a integrer
-	double Gramian() const;								      // L'integrale d'une 'matrice' gramienne
-	double u(double s) const;							      // Le terme de controle
-	double controle_second_membre(double t, double x) const;  // La nouvelle fonction second membre controlee
-	PbCauchy controle_PbCauchy() const;						  // Le nouveau probleme de Cauchy avec le controle du second membre
-	
-	// Methodes responsables du calcul de la solution exacte du probleme de Cauchy controle
-	double integrande_sol_exacte(double s) const;  // Integration de la solution exacte
-	double controle_sol_exacte() const;			   // Solution exacte
-	
-    // Methodes responsables du calcul de feedback par le theoreme de poleshifting
-	double feedback() const;
-	double pole_shifting(double t, double x) const;	 // La nouvelle fonction second membre avec le feedback par pole shifting
-	PbCauchy feedback_PbCauchy() const;				 // Le nouveau probleme de Cauchy pour le theoreme de pole shifting
-	
+class Controle
+{
+  private:
+    double const t0, t1; // Intervalle d'étude
+    double const x0;     // Condition intiale
+    double const cible;  // Point auquel on souhaite arriver au temps final
+
+    const unsigned long long N;    // Pas d'integration
+    string methode_integration;    // Méthode d'intégration choisie
+    function<double(double)> A, B; // Coefficients de notre problème non autonome
+
+  public:
+    // Constructeur de la classe Controle non Autonome en 1D, avec l'exception
+    Controle(double const _t0, double const _t1, double const _x0, double const _cible, const unsigned long long _N,
+             string _methode_integration, function<double(double)> _A, function<double(double)> _B);
+
+    // Méthodes responsables du calcul du contrôle (voir le README pour les détails mathématiques)
+    double R(double t, double s) const;                      // Résolvante
+    double gramian_integrand(double s) const;                // Fonction à intégrer
+    double Gramian() const;                                  // Intégrale d'une 'matrice' gramienne
+    double u(double s) const;                                // Terme de controle
+    double controle_second_membre(double t, double x) const; // Nouvelle fonction second membre controlée
+    PbCauchy controle_PbCauchy() const; // Nouveau problème de Cauchy avec le controle du second membre
+
+    // Méthodes responsables du calcul de la solution exacte du problème de Cauchy controlé
+    double integrande_sol_exacte(double s) const; // Intégration de la solution exacte
+    double controle_sol_exacte() const;           // Solution exacte
+
+    // Méthodes responsables du calcul de feedback par le théorème de poleshifting
+    double feedback() const;
+    double pole_shifting(double t,
+                         double x) const; // Nouvelle fonction second membre avec le feedback par pole shifting
+    PbCauchy feedback_PbCauchy() const;   // Nouveau problème de Cauchy pour le theoreme de pole shifting
 };
 
 #endif /* Controle_hpp */
-
-
