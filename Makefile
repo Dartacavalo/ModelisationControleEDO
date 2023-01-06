@@ -1,34 +1,32 @@
 CC = g++
 PROGS = main tests
 FLAGS = -Wall
-SRC = code/
-EXEC = exec/
-COMPILED = objets/
-OBJETS = *.o
-SORTIES = *.txt *.bat
+SRC = code
+GNUPLOT = gnuplot_files
+DATA = data
 
 all: $(PROGS)
 
-main: main.cpp FonctionsTest.o Controle.o Integrale.o Schema.o
-	$(CC) -o $@ $(COMPILED)$^ $(FLAGS)
+main: $(SRC)/main.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o
+	$(CC) -o $@ $^ $(FLAGS)
 
-tests: mainTests.cpp $(OBJETS)
-	$(CC) -o $@ $(COMPILED)$^ $(FLAGS)
+tests: $(SRC)/mainTests.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o $(SRC)/CasTest.o
+	$(CC) -o $@ $^ $(FLAGS)
 
-FonctionsTest.o: FonctionsTest.cpp FonctionsTest.hpp
-	$(CC) -c $(SRC)$< $(FLAGS)
+$(SRC)/FonctionsTest.o: $(SRC)/FonctionsTest.cpp $(SRC)/FonctionsTest.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
-Controle.o: Controle.cpp Integrale.hpp PbCauchy.hpp
-	$(CC) -c $(SRC)$< $(FLAGS)
+$(SRC)/Controle.o: $(SRC)/Controle.cpp $(SRC)/Integrale.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
-Integrale.o: Integrale.cpp Integrale.hpp
-	$(CC) -c $(SRC)$< $(FLAGS)
+$(SRC)/Integrale.o: $(SRC)/Integrale.cpp $(SRC)/Integrale.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
-CasTest.o: CasTest.cpp Schema.hpp PbCauchy.hpp
-	$(CC) -c $(SRC)$< $(FLAGS)
+$(SRC)/CasTest.o: $(SRC)/CasTest.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
-Schema.o: Schema.cpp Schema.hpp PbCauchy.hpp
-	$(CC) -c $(SRC)$< $(FLAGS)
+$(SRC)/Schema.o: $(SRC)/Schema.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
 clean:
-	rm -f $(OBJETS) $(SORTIES) $(PROGS)
+	rm -f $(PROGS) $(SRC)/*.o $(DATA)/*.txt $(GNUPLOT)/*.bat
