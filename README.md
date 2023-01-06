@@ -17,4 +17,4 @@ $$
 
 La solution exacte de ce problème est donnée par :
 
-$$ x(t) \ = \ \mathcal{R}(t, t_0)x_0 + \int_{t_0}^{t} \mathcal{R}(t,s)B(s) u(s) ds} $$
+$$ x(t) = \mathcal{R}(t, t_0) x_0 + \int_{t_0}^{t} \mathcal{R}(t,s)B(s) u(s) ds $$
