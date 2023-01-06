@@ -2,17 +2,13 @@
 
 L'accent est mis sur la programmation orientée objet, avec une abstraction faite sur la manière dont les objets sont structurés : problèmes de Cauchy, solveurs, méthodes de résolution.
 
-Les fonctions de la classe Controle, valables pour le contrôle non-autonôme de l'équation en 1D : $x'(t) \ = \ A(t) x(t) \ + \ B(t) u(t)$
+Les fonctions représentées de la classe Controle, valables pour le contrôle en temps fini non-autonôme de l'équation en 1D : $x'(t) \ = \ A(t) x(t) \ + \ B(t) u(t)$\\
 
-$$
 \begin{align*}
-        \left\{
-        \begin{array}{llll}
+        \begin{cases}
             u(t)& = B(t) \ \mathcal{R}(t_1, s)y \\
-            y& = \mathbb{C}^{-1} (x_1 - \mathcal{R}(t_1, t_0))x_0\\
-            \mathbb{C}& = \int_{t_0}^{t_1} (\mathcal{R}(t_1, s)B(s))^2 ds\\
-            \mathcal{R}(t, s)& = x_0 e^{\int_{t_0}^{t_1}A(t) dt}
-        \end{array}  \ \ \  
-    \right. 
+            y& = \mathbb{C}^{-1} (x_1 - \mathcal{R}(t_1, t_0))x_0 \\
+            \mathbb{C}& = \int_{t_0}^{t_1} (\mathcal{R}(t_1, s)B(s))^2 ds \\
+            \mathcal{R}(t, s)& = x_0 e^{\int_{s}^{t}A(t) dt}
+        \end{cases}  \ \ \  
 \end{align*}
-$$
