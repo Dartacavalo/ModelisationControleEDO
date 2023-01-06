@@ -6,3 +6,6 @@
 *.txt
 *.bat
 *.gch
+*.pdf
+main
+tests

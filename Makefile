@@ -1,16 +1,31 @@
-progs = main.out
-flags = -Wall
+CC = g++
+PROGS = main tests
+FLAGS = -Wall
+SRC = code
+GNUPLOT = gnuplot
 
-all: $(progs)
+all: $(PROGS)
 
-main.out: main.cpp Solver.o CasTest.o
-	g++ -o $@ $^ $(flags)
+main: $(SRC)/main.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o
+	$(CC) -o $@ $^ $(FLAGS)
 
-CasTest.o: CasTest.cpp Solver.hpp PbCauchy.hpp
-	g++ -c $< $(flags)
+tests: $(SRC)/mainTests.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o $(SRC)/CasTest.o
+	$(CC) -o $@ $^ $(FLAGS)
 
-Solver.o: Solver.cpp Solver.hpp PbCauchy.hpp
-	g++ -c $< $(flags)
+$(SRC)/FonctionsTest.o: $(SRC)/FonctionsTest.cpp $(SRC)/FonctionsTest.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/Controle.o: $(SRC)/Controle.cpp $(SRC)/Integrale.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/Integrale.o: $(SRC)/Integrale.cpp $(SRC)/Integrale.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/CasTest.o: $(SRC)/CasTest.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/Schema.o: $(SRC)/Schema.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
 
 clean:
-	rm *.o *.txt *.bat $(progs)
+	rm -f $(PROGS) $(SRC)/*.o $(GNUPLOT)/*.txt $(GNUPLOT)/*.bat
