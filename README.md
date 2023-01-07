@@ -20,7 +20,8 @@ La solution exacte de ce problème est donnée par :
 $$ x(t) = \mathcal{R}(t, t_0) x_0 + \int_{t_0}^{t} \mathcal{R}(t,s)B(s) u(s) ds $$
 
 Les sorties graphiques utilisent gnuplot, c'est un logiciel libre disponible sur les dépôts Debian et Ubuntu.
-Etant donné que les gestionnaires graphiques sont passés de X11/xorg à wayland, il faut peut-être exécuter la commande :
+
+Etant donné que les gestionnaires graphiques sont passés de X11/xorg à wayland sur les nouvelles versions de linux, il faut peut-être exécuter la commande :
 ```sh
 export XDG_SESSION_TYPE=gnome-xorg
 ```
