@@ -6,14 +6,11 @@ GNUPLOT = gnuplot
 
 all: $(PROGS)
 
-main: $(SRC)/main.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o
+main: $(SRC)/main.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o $(SRC)/affichage.o
 	$(CC) -o $@ $^ $(FLAGS)
 
-tests: $(SRC)/mainTests.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o $(SRC)/CasTest.o
+tests: $(SRC)/mainTests.cpp $(SRC)/FonctionsTest.o $(SRC)/Controle.o $(SRC)/Integrale.o $(SRC)/Schema.o $(SRC)/CasTest.o $(SRC)/affichage.o
 	$(CC) -o $@ $^ $(FLAGS)
-
-$(SRC)/FonctionsTest.o: $(SRC)/FonctionsTest.cpp $(SRC)/FonctionsTest.hpp
-	$(CC) -c $< $(FLAGS) -o $@
 
 $(SRC)/Controle.o: $(SRC)/Controle.cpp $(SRC)/Integrale.hpp $(SRC)/PbCauchy.hpp
 	$(CC) -c $< $(FLAGS) -o $@
@@ -25,6 +22,12 @@ $(SRC)/CasTest.o: $(SRC)/CasTest.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
 	$(CC) -c $< $(FLAGS) -o $@
 
 $(SRC)/Schema.o: $(SRC)/Schema.cpp $(SRC)/Schema.hpp $(SRC)/PbCauchy.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/FonctionsTest.o: $(SRC)/FonctionsTest.cpp $(SRC)/FonctionsTest.hpp
+	$(CC) -c $< $(FLAGS) -o $@
+
+$(SRC)/affichage.o: $(SRC)/affichage.cpp $(SRC)/affichage.hpp
 	$(CC) -c $< $(FLAGS) -o $@
 
 clean:
