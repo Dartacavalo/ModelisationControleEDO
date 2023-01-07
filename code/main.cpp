@@ -22,7 +22,7 @@ int main()
     double const a = get_a();
     double const b = get_b(a);
     const unsigned long long N = get_N(a, b);
-    double const x0 = get_x0(a);
+    double const x0 = get_x0(a, b);
     double const cible = get_cible();
     double const b1 = 3 * b;
     wait(); 

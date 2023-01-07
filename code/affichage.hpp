@@ -30,7 +30,7 @@ void get_intervalle();
 double get_a();
 double get_b(double a);
 unsigned long long get_N(double a, double b);
-double get_x0(double a);
+double get_x0(double a, double b);
 double get_cible();
 void main_poleshifting();
 
