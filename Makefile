@@ -1,6 +1,6 @@
 CC = g++
 PROGS = main tests
-FLAGS = -Wall
+FLAGS = -Wall -std=c++11
 SRC = code
 GNUPLOT = gnuplot
 
