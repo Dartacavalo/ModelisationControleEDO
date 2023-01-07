@@ -31,7 +31,7 @@ double EDO3(double t, double x)
 
 double fct_sol_exacte_Gaussienne(double t, double x0, double a)
 {
-    return x0 * exp(-(t * t - a * a));
+    return x0 * exp( -(t * t - a * a));
 }
 
 double fct_sol_exacte_EDO2(double t, double x0, double t0)
