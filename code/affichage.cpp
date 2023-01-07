@@ -106,3 +106,51 @@ void test_integrale(double a, double b, function<double(double)> fct_integrande,
          << pente_simpson << " pour la méthode de simpson" << endl
          << endl;
 }
+
+void get_intervalle()
+{
+    cout << "On choisi un Intervalle I = [a, b] pour discrétiser notre EDO" << endl;
+}
+double get_a()
+{
+    cout << "Entrez une valeur de a" << endl;
+    double a;
+    cin >> a;
+    return a;
+}
+
+double get_b(double a)
+{
+    cout << "Entrez une valeur de b" << endl;
+    double b;
+    cin >> b;
+    while (b < a)
+    {
+        cout << "La valeur de b est plus petite que A, ressayez" << endl;
+        cin >> b;
+    }
+    return b;
+}
+
+unsigned long long get_N(double a, double b)
+{
+    cout << "Entrez une valeur de N" << endl << "Nous vous suggérons une valeur de N plus grande que :";
+    unsigned long long N = 10 * ((unsigned long long)(b - a) + 1);
+    cout << N << endl;
+    unsigned long long N_input;
+    cin >> N_input;
+    return N_input;
+}
+
+double get_x0(double a)
+{
+    cout << "On va tester notre EDO d'ordre 1 avec cette discrétisation." << endl
+         << "Il faut préciser la valeur de" << endl
+         << "x(" << a << ") = x0" << endl
+         << "Entrez une valeur de x0" << endl;
+
+    double x0;
+    cin >> x0;
+    return x0;
+}
+
