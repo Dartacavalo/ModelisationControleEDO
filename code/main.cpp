@@ -62,7 +62,7 @@ int main()
     //*****************************************************//
 
     //****** Resolution de l'EDO3 *******//
-    test_schema("Runge-Kutta 4", "sin(2t) - x*tan(t)", x0, a, "?");
+    test_schema("Runge-Kutta 4", "cos(t) * x", x0, a, "x0 * exp( - sin( t ) + sin( t0 ) )");
     PbCauchy schemaEDO3(x0, EDO3);
     RungeKutta schema_euler_EDO3(a, b, N, "cosinusoidale", schemaEDO3);
     plot_schema(schema_euler_EDO3);
