@@ -72,7 +72,7 @@ void test_controle(double a, double b, double x0, double cible, string nom_A, st
 
 void erreur_controle(double erreur, double cible)
 {
-    double erreur_controle = abs(erreur- cible) / cible * 100;
+    double erreur_controle = abs(erreur - cible) / cible * 100;
     cout << "L'erreur entre le dernier point du schéma contrôlé et la cible est de " << erreur_controle << "%." << endl;
 }
 
@@ -101,7 +101,8 @@ void test_integrale(double a, double b, function<double(double)> fct_integrande,
     Integrale calculPi_precis(a, b, fct_integrande, 100 * N);
     double pi_precis_milieu = calculPi_precis.point_milieu();
     double pi_precis_simpson = calculPi_precis.simpson();
-    double pente_milieu = (log(abs(pi_precis_milieu - valeur_exacte)) - log(abs(pi_milieu - valeur_exacte))) / (-log(100));
+    double pente_milieu =
+        (log(abs(pi_precis_milieu - valeur_exacte)) - log(abs(pi_milieu - valeur_exacte))) / (-log(100));
     double pente_simpson =
         (log(abs(pi_precis_simpson - valeur_exacte)) - log(abs(pi_simpson - valeur_exacte))) / (-log(100));
     cout << "Une pente de l'erreur en échelle log est de :" << endl
@@ -137,7 +138,8 @@ double get_b(double a)
 
 unsigned long long get_N(double a, double b)
 {
-    cout << "Entrez une valeur de N" << endl << "Nous vous suggérons une valeur de N plus grande que ";
+    cout << "Entrez une valeur de N, c'est le nombre d'intervalles" << endl
+         << "Nous vous suggérons une valeur de N plus grande que ";
     unsigned long long N = (unsigned long long)(b - a);
     cout << 10 * (N + 1) << endl;
     unsigned long long N_input;
@@ -145,15 +147,21 @@ unsigned long long get_N(double a, double b)
     return N_input;
 }
 
-double get_x0(double a)
+double get_x0(double a, double b)
 {
     cout << "On va tester notre EDO d'ordre 1 avec cette discrétisation." << endl
          << "Il faut préciser la valeur de" << endl
          << "x(" << a << ") = x0" << endl
+         << "Mais nos EDO sont un peu spéciale, il faut que x0 >" << 1 / (b - a) << "pour que les calculs fonctionnent"
          << "Entrez une valeur de x0" << endl;
 
     double x0;
     cin >> x0;
+    while (x0 < 1 / (b - a))
+    {
+        cout << "La valeur de x0 ne convient pas, ressayez" << endl;
+        cin >> x0;
+    }
     return x0;
 }
 
