@@ -18,3 +18,10 @@ $$
 La solution exacte de ce problème est donnée par :
 
 $$ x(t) = \mathcal{R}(t, t_0) x_0 + \int_{t_0}^{t} \mathcal{R}(t,s)B(s) u(s) ds $$
+
+Les sorites graphiques utilisent gnuplot, c'est un logiiel libre disponible sur les dépôts Debian et Ubuntu.
+Etant donné que les gestionnaires graphiques sont passés de X11/xorg à wayland, il faut peut-Être executer la commande :
+```sh
+export XDG_SESSION_TYPE=gnome-xorg
+```
+ou un équivalent pour un gestionnaire de bureau autre que gnome pour faire disparaitre les warnings de gnuplot.
