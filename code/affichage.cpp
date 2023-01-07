@@ -24,7 +24,7 @@ void demarrage()
 
 void wait()
 {
-    cout << endl << "Veuillez appuyer sur une touche pour continuer" << endl << endl;
+    cout << endl << "Appuyez sur Entrée pour continuer" << endl << endl;
     cin.ignore();
 }
 
@@ -35,6 +35,12 @@ void test_schema(string nom_schema, string snd_membre, double x0, double a, stri
          << "     x(" << a << ") = " << x0 << endl
          << endl
          << "La solution exacte est x(t) = " << sol_exacte << endl;
+}
+
+void plot_schema(Schema &schema)
+{
+    cout << "Voici la sortie gnuplot :" << endl;
+    schema.plot();
 }
 
 void parametres(double a, double b, double x0, unsigned long long N, double cible, unsigned long long N_min,
@@ -58,18 +64,15 @@ void ordre_schema_max(string nom_schema, int ordre)
 
 void test_controle(double a, double b, double x0, double cible, string nom_A, string nom_B)
 {
-    cout << "Passons au contrôle :" << endl
-         << "On considère le contrôle suivant :" << endl
+    cout << "Testons le contrôle suivant :" << endl
          << "     x'(t) = " << nom_A << " x + " << nom_B << "u" << endl
          << "     x(" << a << ") = " << x0 << endl
          << "     x(" << b << ") = " << cible << endl;
 }
 
-void plot_controle(EulerExplicite schema, double cible)
+void erreur_controle(double erreur, double cible)
 {
-    cout << "Voici la sortie gnuplot :" << endl << endl;
-    schema.plot();
-    double erreur_controle = abs(schema.x_val[schema.x_val.size() - 1] - cible) / cible * 100;
+    double erreur_controle = abs(erreur- cible) / cible * 100;
     cout << "L'erreur entre le dernier point du schéma contrôlé et la cible est de " << erreur_controle << "%." << endl;
 }
 
@@ -95,12 +98,12 @@ void test_integrale(double a, double b, function<double(double)> fct_integrande,
          << "L'erreur du calcul par la methode de Simpson est de "
          << abs(valeur_exacte - pi_simpson) / valeur_exacte * 100 << "%." << endl
          << endl;
-    Integrale calculPiPi(a, b, fct_integrande, 100 * N);
-    double pipi_milieu = calculPiPi.point_milieu();
-    double pipi_simpson = calculPiPi.simpson();
-    double pente_milieu = (log(abs(pipi_milieu - valeur_exacte)) - log(abs(pi_milieu - valeur_exacte))) / (-log(100));
+    Integrale calculPi_precis(a, b, fct_integrande, 100 * N);
+    double pi_precis_milieu = calculPi_precis.point_milieu();
+    double pi_precis_simpson = calculPi_precis.simpson();
+    double pente_milieu = (log(abs(pi_precis_milieu - valeur_exacte)) - log(abs(pi_milieu - valeur_exacte))) / (-log(100));
     double pente_simpson =
-        (log(abs(pipi_simpson - valeur_exacte)) - log(abs(pi_simpson - valeur_exacte))) / (-log(100));
+        (log(abs(pi_precis_simpson - valeur_exacte)) - log(abs(pi_simpson - valeur_exacte))) / (-log(100));
     cout << "Une pente de l'erreur en échelle log est de :" << endl
          << pente_milieu << " pour la méthode du point milieu et de " << endl
          << pente_simpson << " pour la méthode de simpson" << endl
@@ -134,9 +137,9 @@ double get_b(double a)
 
 unsigned long long get_N(double a, double b)
 {
-    cout << "Entrez une valeur de N" << endl << "Nous vous suggérons une valeur de N plus grande que :";
-    unsigned long long N = 10 * ((unsigned long long)(b - a) + 1);
-    cout << N << endl;
+    cout << "Entrez une valeur de N" << endl << "Nous vous suggérons une valeur de N plus grande que ";
+    unsigned long long N = (unsigned long long)(b - a);
+    cout << 10 * (N + 1) << endl;
     unsigned long long N_input;
     cin >> N_input;
     return N_input;
@@ -154,3 +157,15 @@ double get_x0(double a)
     return x0;
 }
 
+double get_cible()
+{
+    cout << "Entrez une valeur cible de l'EDO à contrôler : " << endl;
+    double cible;
+    cin >> cible;
+    return cible;
+}
+
+void main_poleshifting()
+{
+    cout << "Observons un résultat de poleshifting :" << endl;
+}

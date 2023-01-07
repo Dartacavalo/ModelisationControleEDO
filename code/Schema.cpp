@@ -60,7 +60,6 @@ void EulerExplicite::solve()
         t += dt;
         t_val.push_back(t);
     }
-    t_val[N] = b;
 }
 
 // Mise à jour des valeurs de k à l'aide d'un tableau de Butcher

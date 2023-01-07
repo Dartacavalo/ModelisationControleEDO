@@ -53,7 +53,9 @@ int main()
     EulerExplicite schema_euler_gaussien_controle(a, b, N, "controle_gaussienne", gaussienne.controle_PbCauchy());
     test_controle(a, b, x0, cible, "- 2 t", "");
     wait();
-    plot_controle(schema_euler_gaussien_controle, cible);
+    plot_schema(schema_euler_gaussien_controle);
+    double valeur_controle = schema_euler_gaussien_controle.x_val[schema_euler_gaussien_controle.x_val.size() - 1];
+    erreur_controle(valeur_controle, cible);
     wait();
 
     //*********** Tests Méthodes Intégration ***************//
