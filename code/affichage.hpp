@@ -23,4 +23,11 @@ void test_controle(double a, double b, double x0, double cible, string nom_A, st
 void plot_controle(EulerExplicite schema, double cible);
 void test_integrale(double a, double b, function<double(double)> fct_integrande, unsigned long long N,
                     string nom_integrande, double valeur_exacte);
+
+void get_intervalle();
+double get_a();
+double get_b(double a);
+unsigned long long get_N(double a, double b);
+double get_x0(double a);
+
 #endif
