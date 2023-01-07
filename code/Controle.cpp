@@ -65,7 +65,7 @@ double Controle::Gramian() const
 
 double Controle::u(double s) const
 {
-    double y = 1. / Gramian() * (cible - R(t1, t0) * x0);
+    double y = 1. / Gramian() * (cible - R(t1, t0)) * x0;
     return B(s) * R(t1, s) * y;
 }
 
