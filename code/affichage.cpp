@@ -152,12 +152,13 @@ double get_x0(double a, double b)
     cout << "On va tester notre EDO d'ordre 1 avec cette discrétisation." << endl
          << "Il faut préciser la valeur de" << endl
          << "x(" << a << ") = x0" << endl
-         << "Mais nos EDO sont un peu spéciale, il faut que x0 >" << 1 / (b - a) << "pour que les calculs fonctionnent"
+         << "Mais nos EDO sont un peu spéciales, il faut que x0 < " << 1 / (b - a)
+         << " pour que les calculs fonctionnent" << endl
          << "Entrez une valeur de x0" << endl;
 
     double x0;
     cin >> x0;
-    while (x0 < 1 / (b - a))
+    while (x0 > 1 / (b - a))
     {
         cout << "La valeur de x0 ne convient pas, ressayez" << endl;
         cin >> x0;
