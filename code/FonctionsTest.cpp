@@ -22,7 +22,7 @@ double EDO2(double t, double x)
 
 double EDO3(double t, double x)
 {
-    return sin(2 * t) - tan(t) * x;
+	return cos(t) * x;
 }
 
 //****************************************************//
@@ -41,7 +41,7 @@ double fct_sol_exacte_EDO2(double t, double x0, double t0)
 
 double fct_sol_exacte_EDO3(double t, double t0, double x0)
 {
-    return cos(t) * (x0 / cos(t0) - 2 * cos(t) + 2 * cos(t0));
+    return x0 * exp( - sin( t ) + sin( t0 ) );
 }
 
 //******* FCTS POUR TESTER LE CONTROLE NON AUTONOME ********//
@@ -53,7 +53,7 @@ double A(double t)
 
 double A_EDO3(double t)
 {
-    return 1;
+    return cos(t);
 }
 
 double B(double t)
