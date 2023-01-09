@@ -10,7 +10,7 @@ $$
             u(t)& = B(t) \ \mathcal{R}(t_1, s)y \\
             y& = \mathbb{C}^{-1} (x_1 - \mathcal{R}(t_1, t_0))x_0 \\
             \mathbb{C}& = \int_{t_0}^{t_1} (\mathcal{R}(t_1, s)B(s))^2 ds \\
-            \mathcal{R}(t, s)& = x_0 e^{\int_{s}^{t}A(t) dt}
+            \mathcal{R}(t, s)& = e^{\int_{s}^{t}A(t) dt}
         \end{cases}  \ \ \  
 \end{align*}
 $$
